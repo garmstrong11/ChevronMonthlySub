@@ -43,13 +43,15 @@
     <Compile Include="FreightLine.cs" />
     <Compile Include="IDataSettings.cs" />
     <Compile Include="IExtractor.cs" />
+    <Compile Include="Invoice.cs" />
     <Compile Include="IOrderRepository.cs" />
     <Compile Include="LineFactory.cs" />
     <Compile Include="OrderLine.cs" />
     <Compile Include="OrderRepository.cs" />
     <Compile Include="ProductLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StateOrders.cs" />
+    <Compile Include="PurchaseOrderGroup.cs" />
+    <Compile Include="StateOrderGroup.cs" />
     <Compile Include="TaxGroup.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

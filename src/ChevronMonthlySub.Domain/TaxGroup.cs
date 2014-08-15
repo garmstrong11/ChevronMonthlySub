@@ -1,9 +1,10 @@
 ﻿namespace ChevronMonthlySub.Domain
 {
-	public class TaxGroup
+	using System.Collections.Generic;
+
+	public class TaxGroup<T> where T : OrderLine 
 	{
-		public string State { get; set; }
-		public string Id { get; set; }
 		public string GroupName { get; set; }
+		public IEnumerable<StateOrderGroup<T>> StateOrderGroups { get; set; }
 	}
 }

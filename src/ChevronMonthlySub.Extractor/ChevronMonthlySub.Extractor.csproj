@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="OrderLineExtractor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TaxGroupExtractor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ChevronMonthlySub.Domain\ChevronMonthlySub.Domain.csproj">
