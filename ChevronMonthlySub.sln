@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChevronMonthlySub.Domain", "src\ChevronMonthlySub.Domain\ChevronMonthlySub.Domain.csproj", "{A8E870EC-90C2-4C5B-9845-5FACD6FBE333}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChevronMonthlySub.Tests", "src\ChevronMonthlySub.Tests\ChevronMonthlySub.Tests.csproj", "{1B989846-D0D1-4FD3-AA75-DEBAE73B9468}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChevronMonthlySub.Extractor", "src\ChevronMonthlySub.Extractor\ChevronMonthlySub.Extractor.csproj", "{9B540234-F015-463F-84B6-9BEB7DB27B97}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A8E870EC-90C2-4C5B-9845-5FACD6FBE333}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8E870EC-90C2-4C5B-9845-5FACD6FBE333}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8E870EC-90C2-4C5B-9845-5FACD6FBE333}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8E870EC-90C2-4C5B-9845-5FACD6FBE333}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B989846-D0D1-4FD3-AA75-DEBAE73B9468}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B989846-D0D1-4FD3-AA75-DEBAE73B9468}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B989846-D0D1-4FD3-AA75-DEBAE73B9468}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B989846-D0D1-4FD3-AA75-DEBAE73B9468}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B540234-F015-463F-84B6-9BEB7DB27B97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B540234-F015-463F-84B6-9BEB7DB27B97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B540234-F015-463F-84B6-9BEB7DB27B97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B540234-F015-463F-84B6-9BEB7DB27B97}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
