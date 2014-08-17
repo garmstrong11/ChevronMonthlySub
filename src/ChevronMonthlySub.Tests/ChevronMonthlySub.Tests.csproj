@@ -55,7 +55,6 @@
     <Compile Include="Domain\LineFactoryTests.cs" />
     <Compile Include="Domain\OrderLineTest.cs" />
     <Compile Include="Extractor\OrderLineExtractorTests.cs" />
-    <Compile Include="Extractor\TaxGroupExtractorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

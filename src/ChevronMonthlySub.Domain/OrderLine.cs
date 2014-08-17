@@ -7,54 +7,57 @@
 	public class OrderLine
 	{
 		private string _state;
-		private string _taxGroup = "NET";
+		private string _taxGroup = "UNKNOWN";
 
-		private static readonly Regex _regex = 
+		private static readonly Regex LineDescRegex = 
 			new Regex(@"(^.*)\n?\r?Shipped to ([^,]+), ?([^,]+), ?([A-Z]{2})", 
 				RegexOptions.Singleline | RegexOptions.Compiled);
 
-		public DateTime DateShipped { get; private set; }
-		public string PoNumber { get; private set; }
-		public int OrderNumber { get; private set; }
-		public string LineDesc { get; private set; }
+	  public OrderLine(FlexCelOrderLineDto dto)
+	  {
+	    DateShipped = dto.DateShipped;
+	    PoNumber = dto.PoNumber;
+	    OrderNumber = dto.OrderNumber;
+	    LineDesc = dto.LineDesc;
 
-		public string TaxGroup
+	    ExtractAddress(LineDesc);
+	  }
+
+	  public DateTime DateShipped { get; private set; }
+	  public string PoNumber { get; private set; }
+	  public int OrderNumber { get; private set; }
+	  public string LineDesc { get; private set; }
+	  public string Site { get; private set; }
+	  public string City { get; private set; }
+	  public string Product { get; private set; }
+
+	  public string TaxGroup
 		{
 			get { return _taxGroup; }
 		}
 
-		public string Site { get; private set; }
-		public string City { get; private set; }
+	  public string SiteKey
+	  {
+      get { return string.Format("{0}, {1}, {2}", Site, City, State); }
+	  }
 
-		public string State
+	  public string State
 		{
 			get { return _state; }
 			private set
 			{
 				_state = value;
-				string taxGroup;
 
-				if (_taxDict.TryGetValue(value, out taxGroup)) {
+				string taxGroup;
+				if (TaxDict.TryGetValue(value, out taxGroup)) {
 					_taxGroup = taxGroup;
 				}
 			}
 		}
 
-		public string Product { get; private set; }
-
-		public OrderLine(FlexCelOrderLineDto dto)
+	  private void ExtractAddress(string desc)
 		{
-			DateShipped = dto.DateShipped;
-			PoNumber = dto.PoNumber;
-			OrderNumber = dto.OrderNumber;
-			LineDesc = dto.LineDesc;
-
-			ExtractAddress(LineDesc);
-		}
-
-		private void ExtractAddress(string desc)
-		{
-			var match = _regex.Match(desc);
+			var match = LineDescRegex.Match(desc);
 
 			City = match.Groups[3].Value.Trim();
 			State = match.Groups[4].Value.Trim();
@@ -62,7 +65,7 @@
 			Product = match.Groups[1].Value.Trim();
 		}
 
-		private static Dictionary<string, string> _taxDict = new Dictionary<string, string>
+		private static readonly Dictionary<string, string> TaxDict = new Dictionary<string, string>
 			{
 			{"AL", "NET"},		{"AK", "NOMAD"},		{"AZ", "NET"},		{"AR", "NET"},		{"CA", "NET"},
 			{"CO", "GROSS"},	{"CT", "NET"},			{"DE", "NOMAD"},	{"DC", "GROSS"},	{"FL", "GROSS"},
