@@ -2,7 +2,7 @@
 {
 	using System.Collections.Generic;
 
-	public class TaxGroup<T> where T : OrderLine 
+	public class ReportData<T> where T : OrderLine 
 	{
 		public string GroupName { get; set; }
     public string PoNumber { get; set; }

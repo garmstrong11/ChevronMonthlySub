@@ -36,14 +36,12 @@
 		}
 
 		[Test]
-		public void Ctor_CapturesCityStateAndSite_Multiline()
+		public void Ctor_CapturesStateAndDestination_Multiline()
 		{
 			var line = new OrderLine(_dto);
 
-			line.City.Should().Be("FORT WORTH");
 			line.State.Should().Be("TX");
-			line.Site.Should().Be("TEXACO #355290");
-			line.Product.Should().Be("Q2/3 2014 Texaco Field Communication Guide");
+			line.Destination.Should().Be("TEXACO #355290, FORT WORTH, TX.");
 		}
 
 		[Test]
@@ -52,10 +50,8 @@
 			_dto.LineDesc = "Freight - Non-Tax Shipped to CHEVRON #306168, Atlanta, GA.";
 			var line = new OrderLine(_dto);
 
-			line.City.Should().Be("Atlanta");
 			line.State.Should().Be("GA");
-			line.Site.Should().Be("CHEVRON #306168");
-			line.Product.Should().Be("Freight - Non-Tax");
+			line.Destination.Should().Be("CHEVRON #306168, Atlanta, GA.");
 		}
 
 		[Test]
@@ -68,6 +64,15 @@
 			_dto.LineDesc = "Freight - Non-Tax Shipped to CHEVRON #306168, Atlanta, AK.";
 			line = new OrderLine(_dto);
 			line.TaxGroup.Should().Be("NOMAD");
+		}
+
+		[Test]
+		public void ThrowsOnBadState()
+		{
+			_dto.LineDesc = "Freight - Non-Tax Shipped to CHEVRON #306168, Atlanta, ZZ.";
+
+			Action act = () => new OrderLine(_dto);
+			act.ShouldThrow<InvalidStateException>();
 		}
 	}
 }

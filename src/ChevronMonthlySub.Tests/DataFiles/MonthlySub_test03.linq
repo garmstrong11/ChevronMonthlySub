@@ -1,6 +1,6 @@
 <Query Kind="Statements">
-  <Reference>C:\code\ChevronMonthlySub\src\ChevronMonthlySub.Domain\bin\Debug\ChevronMonthlySub.Domain.dll</Reference>
-  <Reference>C:\code\ChevronMonthlySub\src\ChevronMonthlySub.Extractor\bin\Debug\ChevronMonthlySub.Extractor.dll</Reference>
+  <Reference Relative="..\..\ChevronMonthlySub.Extractor\bin\Debug\ChevronMonthlySub.Domain.dll">F:\CODE\ChevronMonthlySub\src\ChevronMonthlySub.Extractor\bin\Debug\ChevronMonthlySub.Domain.dll</Reference>
+  <Reference Relative="..\..\ChevronMonthlySub.Extractor\bin\Debug\ChevronMonthlySub.Extractor.dll">F:\CODE\ChevronMonthlySub\src\ChevronMonthlySub.Extractor\bin\Debug\ChevronMonthlySub.Extractor.dll</Reference>
   <GACReference>FlexCel, Version=6.3.0.0, Culture=neutral, PublicKeyToken=cb8f6080e6d5a4d6</GACReference>
   <Namespace>ChevronMonthlySub.Domain</Namespace>
   <Namespace>ChevronMonthlySub.Extractor</Namespace>
@@ -8,7 +8,7 @@
   <Namespace>FlexCel.XlsAdapter</Namespace>
 </Query>
 
-const string testFilePath = @"C:\code\ChevronMonthlySub\src\ChevronMonthlySub.Tests\DataFiles\Chevron June FG 462988.xlsx";
+const string testFilePath = @"F:\code\ChevronMonthlySub\src\ChevronMonthlySub.Tests\DataFiles\Chevron June FG 462988.xlsx";
 var xls = new XlsFile(testFilePath, false);
 var extractor = new OrderLineExtractor(xls);
 var dtos = extractor.Extract();

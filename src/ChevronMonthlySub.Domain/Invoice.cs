@@ -17,23 +17,23 @@
 
     public string InvoiceNumber { get; set; }
 
-    public IEnumerable<TaxGroup<FreightLine>> FreightOrders
+    public IEnumerable<ReportData<FreightLine>> FreightOrders
     {
-      get { return GetOrders(_freightLines); }
+      get { return GetReportData(_freightLines); }
     }
 
-    public IEnumerable<TaxGroup<ProductLine>> ProductOrders
+    public IEnumerable<ReportData<ProductLine>> ProductOrders
     {
-      get { return GetOrders(_productLines); }
+      get { return GetReportData(_productLines); }
     }
 
-    private static IEnumerable<TaxGroup<T>> GetOrders<T>(IEnumerable<T> lines) where T : OrderLine
+    private static IEnumerable<ReportData<T>> GetReportData<T>(IEnumerable<T> lines) where T : OrderLine
     {
       var query = 
         from line in lines
         group line by new { line.PoNumber, line.TaxGroup }
         into orders
-        select new TaxGroup<T>
+        select new ReportData<T>
                {
                  PoNumber = orders.Key.PoNumber,
                  GroupName = orders.Key.TaxGroup,

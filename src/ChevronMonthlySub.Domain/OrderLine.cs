@@ -6,12 +6,7 @@
 
 	public class OrderLine
 	{
-		private string _state;
-		private string _taxGroup = "UNKNOWN";
-
-		private static readonly Regex LineDescRegex = 
-			new Regex(@"(^.*)\n?\r?Shipped to ([^,]+), ?([^,]+), ?([A-Z]{2})", 
-				RegexOptions.Singleline | RegexOptions.Compiled);
+		private static readonly Regex StateRegex = new Regex(@"([A-Z]{2})\.?$", RegexOptions.Compiled);
 
 	  public OrderLine(FlexCelOrderLineDto dto)
 	  {
@@ -20,50 +15,34 @@
 	    OrderNumber = dto.OrderNumber;
 	    LineDesc = dto.LineDesc;
 
-	    ExtractAddress(LineDesc);
+	    ExtractDestinationAndState(LineDesc);
 	  }
 
 	  public DateTime DateShipped { get; private set; }
 	  public string PoNumber { get; private set; }
 	  public int OrderNumber { get; private set; }
 	  public string LineDesc { get; private set; }
-	  public string Site { get; private set; }
-	  public string City { get; private set; }
-	  public string Product { get; private set; }
+		public string Destination { get; private set; }
+		public string TaxGroup { get; private set; }
+	  public string State { get; private set; }
 
-	  public string TaxGroup
-		{
-			get { return _taxGroup; }
-		}
-
-	  public string SiteKey
+	  private void ExtractDestinationAndState(string desc)
 	  {
-      get { return string.Format("{0}, {1}, {2}", Site, City, State); }
-	  }
+			var split = desc.Split(new [] {"Shipped to "}, StringSplitOptions.RemoveEmptyEntries);
+		  Destination = split[1].Trim();
 
-	  public string State
-		{
-			get { return _state; }
-			private set
+		  var match = StateRegex.Match(Destination);
+			var state = match.Groups[1].Value;
+
+			string taxGroup;
+			if (!TaxDict.TryGetValue(state, out taxGroup))
 			{
-				_state = value;
-
-				string taxGroup;
-				if (TaxDict.TryGetValue(value, out taxGroup)) {
-					_taxGroup = taxGroup;
-				}
+				throw new InvalidStateException(PoNumber, OrderNumber, LineDesc, state);
 			}
-		}
 
-	  private void ExtractAddress(string desc)
-		{
-			var match = LineDescRegex.Match(desc);
-
-			City = match.Groups[3].Value.Trim();
-			State = match.Groups[4].Value.Trim();
-			Site = match.Groups[2].Value.Trim();
-			Product = match.Groups[1].Value.Trim();
-		}
+		  State = state;
+		  TaxGroup = taxGroup;
+	  }
 
 		private static readonly Dictionary<string, string> TaxDict = new Dictionary<string, string>
 			{

@@ -20,7 +20,7 @@ var freightLines = lines.OfType<FreightLine>();
 var productLines = lines.OfType<ProductLine>();
 
 var siteDict = (from line in freightLines
-			group line by line.SiteKey into sites
+			group line by line.Destination into sites
 			select new { 
 				Key = sites.Key,
 				BoxCount = sites.Count()
@@ -31,21 +31,21 @@ var siteDict = (from line in freightLines
 // A list of first product in shipments
 var firstProducts = 
 	from line in productLines
-	group line by line.SiteKey into shipment
+	group line by line.Destination into shipment
 	select shipment.First();
 	
-firstProducts.Dump("First Products:");
+firstProducts.Dump("First Products:", 0);
 
 // Set the boxes quantity for all firstProducts:
 foreach (var product in firstProducts) {
 	var count = 0;
 	
 	// Make sure at least one box is sent to each site:
-	if (!siteDict.TryGetValue(product.SiteKey, out count)) {
+	if (!siteDict.TryGetValue(product.Destination, out count)) {
 		count = 1;
 	}
 	
 	product.Boxes = count;
 }
 
-productLines.OrderBy(k => k.PoNumber).ThenBy(k => k.Site).Dump();
+productLines.OrderBy(k => k.PoNumber).ThenBy(k => k.Destination).Dump();

@@ -43,6 +43,7 @@
     <Compile Include="FreightLine.cs" />
     <Compile Include="IDataSettings.cs" />
     <Compile Include="IExtractor.cs" />
+    <Compile Include="InvalidStateException.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="IOrderRepository.cs" />
     <Compile Include="LineFactory.cs" />
@@ -51,7 +52,7 @@
     <Compile Include="ProductLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StateOrderGroup.cs" />
-    <Compile Include="TaxGroup.cs" />
+    <Compile Include="ReportData.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

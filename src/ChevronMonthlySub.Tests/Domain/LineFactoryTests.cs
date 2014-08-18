@@ -38,5 +38,18 @@
 
 			lines.Count.Should().Be(477);
 		}
+
+		[Test]
+		public void SetBoxCount_ReturnsCorrectTotal()
+		{
+			var factory = new LineFactory();
+			var lines = _dtos.Select(factory.Create).ToList();
+
+			factory.AssignBoxCount(lines);
+
+			var boxCount = lines.OfType<ProductLine>().Sum(b => b.Boxes);
+
+			boxCount.Should().Be(128);
+		}
 	}
 }
