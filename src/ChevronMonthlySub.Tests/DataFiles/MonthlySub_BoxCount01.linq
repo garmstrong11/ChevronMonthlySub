@@ -1,6 +1,6 @@
 <Query Kind="Statements">
-  <Reference>C:\code\ChevronMonthlySub\src\ChevronMonthlySub.Domain\bin\Debug\ChevronMonthlySub.Domain.dll</Reference>
-  <Reference>C:\code\ChevronMonthlySub\src\ChevronMonthlySub.Extractor\bin\Debug\ChevronMonthlySub.Extractor.dll</Reference>
+  <Reference Relative="..\..\ChevronMonthlySub.Extractor\bin\Debug\ChevronMonthlySub.Domain.dll">F:\CODE\ChevronMonthlySub\src\ChevronMonthlySub.Extractor\bin\Debug\ChevronMonthlySub.Domain.dll</Reference>
+  <Reference Relative="..\..\ChevronMonthlySub.Extractor\bin\Debug\ChevronMonthlySub.Extractor.dll">F:\CODE\ChevronMonthlySub\src\ChevronMonthlySub.Extractor\bin\Debug\ChevronMonthlySub.Extractor.dll</Reference>
   <GACReference>FlexCel, Version=6.3.0.0, Culture=neutral, PublicKeyToken=cb8f6080e6d5a4d6</GACReference>
   <Namespace>ChevronMonthlySub.Domain</Namespace>
   <Namespace>ChevronMonthlySub.Extractor</Namespace>
@@ -8,7 +8,7 @@
   <Namespace>FlexCel.XlsAdapter</Namespace>
 </Query>
 
-const string testFilePath = @"C:\code\ChevronMonthlySub\src\ChevronMonthlySub.Tests\DataFiles\Chevron June FG 462988.xlsx";
+const string testFilePath = @"F:\CODE\ChevronMonthlySub\src\ChevronMonthlySub.Tests\DataFiles\Chevron June FG 462988.xlsx";
 var xls = new XlsFile(testFilePath, false);
 var extractor = new OrderLineExtractor(xls);
 var dtos = extractor.Extract();
@@ -26,7 +26,7 @@ var siteDict = (from line in freightLines
 				BoxCount = sites.Count()
 			}).ToDictionary(k => k.Key, v => v.BoxCount);
 			
-siteDict.Dump();
+//siteDict.Dump();
 
 // A list of first product in shipments
 var firstProducts = 
@@ -34,12 +34,17 @@ var firstProducts =
 	group line by line.SiteKey into shipment
 	select shipment.First();
 	
-//firstProducts.Dump();
+firstProducts.Dump("First Products:");
 
 // Set the boxes quantity for all firstProducts:
 foreach (var product in firstProducts) {
 	var count = 0;
-	if (!siteDict.TryGetValue(product.SiteKey, out count)) continue;
+	
+	// Make sure at least one box is sent to each site:
+	if (!siteDict.TryGetValue(product.SiteKey, out count)) {
+		count = 1;
+	}
+	
 	product.Boxes = count;
 }
 
