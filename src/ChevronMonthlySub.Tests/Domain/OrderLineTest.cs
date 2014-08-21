@@ -59,11 +59,11 @@
 		{
 			_dto.LineDesc = "Freight - Non-Tax Shipped to CHEVRON #306168, Atlanta, GA.";
 			var line = new OrderLine(_dto);
-			line.TaxGroup.Should().Be("NET");
+			line.TaxType.Should().Be("NET");
 
 			_dto.LineDesc = "Freight - Non-Tax Shipped to CHEVRON #306168, Atlanta, AK.";
 			line = new OrderLine(_dto);
-			line.TaxGroup.Should().Be("NOMAD");
+			line.TaxType.Should().Be("NOMAD");
 		}
 
 		[Test]

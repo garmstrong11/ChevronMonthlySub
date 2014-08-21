@@ -45,14 +45,14 @@
     <Compile Include="IExtractor.cs" />
     <Compile Include="InvalidStateException.cs" />
     <Compile Include="Invoice.cs" />
-    <Compile Include="IOrderRepository.cs" />
-    <Compile Include="LineFactory.cs" />
+    <Compile Include="IReportDataRepository.cs" />
     <Compile Include="OrderLine.cs" />
-    <Compile Include="OrderRepository.cs" />
+    <Compile Include="ReportDataRepository.cs" />
     <Compile Include="ProductLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StateOrderGroup.cs" />
     <Compile Include="ReportData.cs" />
+    <Compile Include="TaxType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

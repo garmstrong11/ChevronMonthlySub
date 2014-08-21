@@ -2,6 +2,7 @@
 {
 	using System;
 	using System.Collections.Generic;
+	using System.IO;
 	using Domain;
 	using FlexCel.XlsAdapter;
 
@@ -12,6 +13,15 @@
 		public OrderLineExtractor(XlsFile xls)
 		{
 			_xls = xls;
+		}
+
+		public OrderLineExtractor(string xlsPath)
+		{
+			if (!File.Exists(xlsPath)) {
+				throw new FileNotFoundException("Excel data file not found");
+			}
+
+			_xls = new XlsFile(xlsPath);
 		}
 		
 		public IList<FlexCelOrderLineDto> Extract()
@@ -44,7 +54,14 @@
 		{
 			const int columnIndex = 1;
 			var val = _xls.GetStringFromCell(rowIndex, columnIndex).Value;
-			return DateTime.Parse(val);
+
+			DateTime dt;
+			if (DateTime.TryParse(val, out dt)) return dt;
+
+			var msg = string.Format("Bad date format at row {0} column {1} of file {2}", 
+				rowIndex, columnIndex, _xls.ActiveFileName);
+
+			throw new FormatException(msg);
 		}
 
 		private string ExtractPoNumber(int rowIndex)

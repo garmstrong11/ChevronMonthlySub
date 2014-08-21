@@ -52,8 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Domain\LineFactoryTests.cs" />
     <Compile Include="Domain\OrderLineTest.cs" />
+    <Compile Include="Domain\ReportDataRepositoryTests.cs" />
     <Compile Include="Extractor\OrderLineExtractorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

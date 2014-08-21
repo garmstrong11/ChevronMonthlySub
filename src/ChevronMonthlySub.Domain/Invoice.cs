@@ -31,12 +31,12 @@
     {
       var query = 
         from line in lines
-        group line by new { line.PoNumber, line.TaxGroup }
+        group line by new { line.PoNumber, TaxGroup = line.TaxType }
         into orders
         select new ReportData<T>
                {
                  PoNumber = orders.Key.PoNumber,
-                 GroupName = orders.Key.TaxGroup,
+                 TaxType = orders.Key.TaxGroup,
                  States = 
                    from order in orders
                    group order by order.State
