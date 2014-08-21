@@ -41,15 +41,18 @@
   <ItemGroup>
     <Compile Include="FlexCelOrderLineDto.cs" />
     <Compile Include="FreightLine.cs" />
+    <Compile Include="HardCodedRequestorRepository.cs" />
     <Compile Include="IDataSettings.cs" />
     <Compile Include="IExtractor.cs" />
     <Compile Include="InvalidStateException.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="IReportDataRepository.cs" />
+    <Compile Include="IRequestorRepository.cs" />
     <Compile Include="OrderLine.cs" />
     <Compile Include="ReportDataRepository.cs" />
     <Compile Include="ProductLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Requestor.cs" />
     <Compile Include="StateOrderGroup.cs" />
     <Compile Include="ReportData.cs" />
     <Compile Include="TaxType.cs" />

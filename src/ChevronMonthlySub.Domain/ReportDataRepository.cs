@@ -6,10 +6,12 @@
 	public class ReportDataRepository : IReportDataRepository
 	{
 		private readonly List<OrderLine> _orderLines;
+		private readonly IRequestorRepository _requestorRepository;
 
-		public ReportDataRepository(IExtractor<FlexCelOrderLineDto> extractor)
+		public ReportDataRepository(IExtractor<FlexCelOrderLineDto> extractor, IRequestorRepository requestorRepository)
 		{
 			_orderLines = extractor.Extract().Select(CreateOrderLine).ToList();
+			_requestorRepository = requestorRepository;
 
 			AssignBoxCountsToProductLines();
 		}
