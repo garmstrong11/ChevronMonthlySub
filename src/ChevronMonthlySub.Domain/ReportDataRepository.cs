@@ -6,12 +6,12 @@
 	public class ReportDataRepository : IReportDataRepository
 	{
 		private readonly List<OrderLine> _orderLines;
-		private readonly IRequestorRepository _requestorRepository;
+		private readonly IRecipientRepository _recipientRepository;
 
-		public ReportDataRepository(IExtractor<FlexCelOrderLineDto> extractor, IRequestorRepository requestorRepository)
+		public ReportDataRepository(IExtractor<FlexCelOrderLineDto> extractor, IRecipientRepository recipientRepository)
 		{
 			_orderLines = extractor.Extract().Select(CreateOrderLine).ToList();
-			_requestorRepository = requestorRepository;
+			_recipientRepository = recipientRepository;
 
 			AssignBoxCountsToProductLines();
 		}
@@ -53,13 +53,14 @@
 
 		private void AssignBoxCountsToProductLines()
 		{
-			var siteDict = (from line in FreightLines
-											group line by line.Destination into sites
+			var siteList = (from line in FreightLines
+											group line by new { line.Destination, line.PoNumber } into sites
 											select new
 											{
-												sites.Key,
+												sites.Key.Destination,
+												sites.Key.PoNumber,
 												BoxCount = sites.Count()
-											}).ToDictionary(k => k.Key, v => v.BoxCount);
+											}).ToList();
 
 			var firstProducts = from line in ProductLines
 													group line by line.Destination into shipment
@@ -67,19 +68,15 @@
 
 			foreach (var product in firstProducts)
 			{
-				var count = 0;
+				var matches = siteList
+					.FindAll(s => s.Destination == product.Destination && s.PoNumber == product.PoNumber);
 
 				// Make sure at least one box is sent to each destination:
-				if (!siteDict.TryGetValue(product.Destination, out count))
-				{
-					count = 1;
-				}
-
-				product.Boxes = count;
+				product.Boxes = matches.Count == 0 ? 1 : matches.Count;
 			}
 		}
 
-		private static IEnumerable<ReportData<T>> GetReportData<T>(IEnumerable<T> lines, string invoiceId) where T : OrderLine
+		private IEnumerable<ReportData<T>> GetReportData<T>(IEnumerable<T> lines, string invoiceId) where T : OrderLine
 		{
 			var query =
 				from line in lines
@@ -90,6 +87,7 @@
 						PoNumber = orders.Key.PoNumber,
 						TaxType = orders.Key.TaxGroup,
 						InvoiceNumber = invoiceId,
+						Recipient = _recipientRepository.Get("ML"),
 						States =
 							from order in orders
 							group order by order.State

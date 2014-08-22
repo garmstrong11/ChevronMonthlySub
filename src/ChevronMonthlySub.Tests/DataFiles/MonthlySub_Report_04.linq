@@ -13,11 +13,15 @@ void Main()
 {
 	const string testFilePath = @"F:\code\ChevronMonthlySub\src\ChevronMonthlySub.Tests\DataFiles\Chevron June FG 462988.xlsx";
 	var extractor = new OrderLineExtractor(testFilePath);
-	var repo = new ReportDataRepository(extractor);
+	var recipientRepo = new HardCodedRecipientRepository();
+	var repo = new ReportDataRepository(extractor, recipientRepo);
 	var invoiceId = GetInvoiceFromFilename(testFilePath);
 	
 	var fr = repo.GetFreightReports(invoiceId);
 	var pr = repo.GetProductReports(invoiceId);
+	
+	pr.Dump("Product Lines: ", 0);
+	fr.Dump("Freight Lines: ", 0);
 		
 	foreach (var item in fr) {
 		using (var report = new FlexCelReport(true)) {
@@ -58,7 +62,7 @@ public static void BuildReport<T>(FlexCelReport report, ReportData<T> data) wher
 	report.SetValue("LastDay", GetLastDayOfThisMonthAsDouble());
 	report.SetValue("PoNumber", data.PoNumber);
 	report.SetValue("InvoiceNumber", data.InvoiceNumber);
-	report.SetValue("Recipient", data.Recipient);
+	report.SetValue("Recipient", data.Recipient.Initials);
 	
 	if (firstOrderLine is FreightLine) {
 		templateFilename = "FreightTemplate.xlsx";
@@ -74,7 +78,8 @@ public static void BuildReport<T>(FlexCelReport report, ReportData<T> data) wher
 	}
 	
 	var reportTemplatePath = Path.Combine(reportTestDir, templateFilename);
-	var reportFileName = string.Format(formatString, data.InvoiceNumber, data.PoNumber, data.Recipient, data.TaxType, suffix);
+	var reportFileName = string.Format(formatString, 
+		data.InvoiceNumber, data.PoNumber, data.Recipient.Initials, data.TaxType, suffix);
 	var reportDestinationPath = Path.Combine(reportTestDir, reportFileName);
 	
 	report.Run(reportTemplatePath, reportDestinationPath);
