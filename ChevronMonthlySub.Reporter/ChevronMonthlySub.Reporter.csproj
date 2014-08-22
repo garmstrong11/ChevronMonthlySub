@@ -42,8 +42,10 @@
   <ItemGroup>
     <Compile Include="FreightChevronReport.cs" />
     <Compile Include="IChevronReport.cs" />
+    <Compile Include="IReportFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ChevronReportBase.cs" />
+    <Compile Include="ChevronReport.cs" />
+    <Compile Include="ReportFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\src\ChevronMonthlySub.Domain\ChevronMonthlySub.Domain.csproj">
