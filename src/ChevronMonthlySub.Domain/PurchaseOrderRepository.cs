@@ -3,12 +3,12 @@
 	using System.Collections.Generic;
 	using System.Linq;
 
-	public class ReportDataRepository : IReportDataRepository
+	public class PurchaseOrderRepository : IPurchaseOrderRepository
 	{
 		private readonly List<OrderLine> _orderLines;
 		private readonly IRecipientRepository _recipientRepository;
 
-		public ReportDataRepository(IExtractor<FlexCelOrderLineDto> extractor, IRecipientRepository recipientRepository)
+		public PurchaseOrderRepository(IExtractor<FlexCelOrderLineDto> extractor, IRecipientRepository recipientRepository)
 		{
 			_orderLines = extractor.Extract().Select(CreateOrderLine).ToList();
 			_recipientRepository = recipientRepository;
@@ -26,17 +26,17 @@
 			get { return _orderLines.OfType<ProductLine>(); }
 		}
 
-		public IEnumerable<ReportData<ProductLine>> GetProductReports(string invoiceId)
+		public IEnumerable<PurchaseOrder<ProductLine>> GetProductPurchaseOrders(string invoiceId)
 		{
 			return GetReportData(ProductLines, invoiceId);
 		}
 
-		public IEnumerable<ReportData<FreightLine>> GetFreightReports(string invoiceId)
+		public IEnumerable<PurchaseOrder<FreightLine>> GetFreightPurchaseOrders(string invoiceId)
 		{
 			return GetReportData(FreightLines, invoiceId);
 		}
 
-		public IEnumerable<ReportData<OrderLine>> GetAllReports(string invoiceId )
+		public IEnumerable<PurchaseOrder<OrderLine>> GetAllReports(string invoiceId )
 		{
 			return GetAllReports(_orderLines, invoiceId);
 		}
@@ -76,13 +76,13 @@
 			}
 		}
 
-		private IEnumerable<ReportData<T>> GetReportData<T>(IEnumerable<T> lines, string invoiceId) where T : OrderLine
+		private IEnumerable<PurchaseOrder<T>> GetReportData<T>(IEnumerable<T> lines, string invoiceId) where T : OrderLine
 		{
 			var query =
 				from line in lines
 				group line by new { line.PoNumber, TaxGroup = line.TaxType }
 					into orders
-					select new ReportData<T>
+					select new PurchaseOrder<T>
 					{
 						PoNumber = orders.Key.PoNumber,
 						TaxType = orders.Key.TaxGroup,
@@ -92,7 +92,7 @@
 							from order in orders
 							group order by order.State
 								into states
-								select new StateOrderGroup<T>
+								select new StateGroup
 								{
 									StateName = states.Key,
 									OrderLines = states.ToList()
@@ -103,13 +103,13 @@
 			return query.ToList();
 		}
 
-		private static IEnumerable<ReportData<OrderLine>> GetAllReports(IEnumerable<OrderLine> lines, string invoiceId)
+		private static IEnumerable<PurchaseOrder<OrderLine>> GetAllReports(IEnumerable<OrderLine> lines, string invoiceId)
 		{
 			var query =
 				from line in lines
 				group line by new { line.PoNumber, TaxGroup = line.TaxType }
 					into orders
-					select new ReportData<OrderLine>
+					select new PurchaseOrder<OrderLine>
 					{
 						PoNumber = orders.Key.PoNumber,
 						TaxType = orders.Key.TaxGroup,
@@ -118,7 +118,7 @@
 							from order in orders
 							group order by order.State
 								into states
-								select new StateOrderGroup<OrderLine>
+								select new StateGroup
 								{
 									StateName = states.Key,
 									OrderLines = states

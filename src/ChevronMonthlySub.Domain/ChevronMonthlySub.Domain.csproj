@@ -40,26 +40,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FlexCelOrderLineDto.cs" />
-    <Compile Include="FreightLine.cs" />
     <Compile Include="HardCodedRecipientRepository.cs" />
     <Compile Include="IDataSettings.cs" />
     <Compile Include="IExtractor.cs" />
     <Compile Include="InvalidStateException.cs" />
-    <Compile Include="Invoice.cs" />
-    <Compile Include="IReportDataRepository.cs" />
+    <Compile Include="IPurchaseOrderRepository.cs" />
     <Compile Include="IRecipientRepository.cs" />
-    <Compile Include="IUserSettingsService.cs" />
-    <Compile Include="OrderLine.cs" />
-    <Compile Include="ReportDataRepository.cs" />
-    <Compile Include="ProductLine.cs" />
+    <Compile Include="IShippingCostService.cs" />
+    <Compile Include="ITemplatePathService.cs" />
+    <Compile Include="OrderLine\FreightLine.cs" />
+    <Compile Include="OrderLine\OrderLine.cs" />
+    <Compile Include="OrderLine\ProductLine.cs" />
+    <Compile Include="PurchaseOrderRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchaseOrder\FreightPurchaseOrder.cs" />
+    <Compile Include="PurchaseOrder\ProductPurchaseOrder.cs" />
+    <Compile Include="PurchaseOrder\PurchaseOrder.cs" />
     <Compile Include="Recipient.cs" />
-    <Compile Include="StateFreightGroup.cs" />
-    <Compile Include="StateOrderGroup.cs" />
-    <Compile Include="ReportData.cs" />
-    <Compile Include="StateProductGroup.cs" />
+    <Compile Include="StateGroup\FreightStateGroup.cs" />
+    <Compile Include="StateGroup\ProductStateGroup.cs" />
+    <Compile Include="StateGroup\StateGroup.cs" />
     <Compile Include="TaxType.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

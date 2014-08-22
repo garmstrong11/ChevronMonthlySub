@@ -3,9 +3,9 @@
 	using System.Collections.Generic;
 	using System.Linq;
 
-	public class StateFreightGroup : StateOrderGroup<FreightLine>
+	public class FreightStateGroup : StateGroup
 	{
-		public new IEnumerable<FreightLine> OrderLines { get; set; }
+		public IEnumerable<FreightLine> OrderLines { get; set; }
 
 		public decimal LineAmountSubtotal
 		{

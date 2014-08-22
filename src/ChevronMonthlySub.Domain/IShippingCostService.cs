@@ -1,6 +1,6 @@
 ﻿namespace ChevronMonthlySub.Domain
 {
-	public interface IUserSettingsService
+	public interface IShippingCostService
 	{
 		/// <summary>
 		/// The charge for each box shipped.

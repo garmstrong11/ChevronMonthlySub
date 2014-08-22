@@ -31,7 +31,7 @@
 		[Test]
 		public void TestCreate()
 		{
-			var repo = new ReportDataRepository(_extractor, _recipRepo);
+			var repo = new PurchaseOrderRepository(_extractor, _recipRepo);
 			repo.FreightLines.Count().Should().Be(126);
 			repo.ProductLines.Count().Should().Be(351);
 		}
@@ -39,7 +39,7 @@
 		[Test]
 		public void ReportWithNoFreightLines_GetsOneBox()
 		{
-			var repo = new ReportDataRepository(_extractor, _recipRepo);
+			var repo = new PurchaseOrderRepository(_extractor, _recipRepo);
 			var itemsWithOneBoxFor15142183 = repo.ProductLines
 				.Where(p => p.PoNumber == "15142183" && p.Boxes == 1);
 
