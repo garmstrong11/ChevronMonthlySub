@@ -5,7 +5,7 @@
 
 	public class ProductPurchaseOrder : PurchaseOrder
 	{
-		public new IEnumerable<ProductStateGroup> States { get; set; }
+		public IEnumerable<ProductStateGroup> States { get; set; }
 
 		public decimal PickPackCharge
 		{

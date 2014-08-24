@@ -7,11 +7,19 @@
 	{
 		private readonly List<OrderLine> _orderLines;
 		private readonly IRecipientRepository _recipientRepository;
+	  private readonly IShippingCostService _shippingCostService;
 
-		public PurchaseOrderRepository(IExtractor<FlexCelOrderLineDto> extractor, IRecipientRepository recipientRepository)
+		public PurchaseOrderRepository(
+      IExtractor<FlexCelOrderLineDto> extractor, 
+      IRecipientRepository recipientRepository, 
+      IShippingCostService shippingCostService)
 		{
-			_orderLines = extractor.Extract().Select(CreateOrderLine).ToList();
+			_orderLines = extractor.Extract()
+        .Select(CreateOrderLine)
+        .ToList();
+
 			_recipientRepository = recipientRepository;
+		  _shippingCostService = shippingCostService;
 
 			AssignBoxCountsToProductLines();
 		}
@@ -24,21 +32,6 @@
 		public IEnumerable<ProductLine> ProductLines
 		{
 			get { return _orderLines.OfType<ProductLine>(); }
-		}
-
-		public IEnumerable<PurchaseOrder<ProductLine>> GetProductPurchaseOrders(string invoiceId)
-		{
-			return GetReportData(ProductLines, invoiceId);
-		}
-
-		public IEnumerable<PurchaseOrder<FreightLine>> GetFreightPurchaseOrders(string invoiceId)
-		{
-			return GetReportData(FreightLines, invoiceId);
-		}
-
-		public IEnumerable<PurchaseOrder<OrderLine>> GetAllReports(string invoiceId )
-		{
-			return GetAllReports(_orderLines, invoiceId);
 		}
 
 		private static OrderLine CreateOrderLine(FlexCelOrderLineDto dto)
@@ -76,13 +69,13 @@
 			}
 		}
 
-		private IEnumerable<PurchaseOrder<T>> GetReportData<T>(IEnumerable<T> lines, string invoiceId) where T : OrderLine
+		public IEnumerable<FreightPurchaseOrder> GetFreightPurchaseOrders(string invoiceId)
 		{
 			var query =
-				from line in lines
+				from line in FreightLines
 				group line by new { line.PoNumber, TaxGroup = line.TaxType }
 					into orders
-					select new PurchaseOrder<T>
+					select new FreightPurchaseOrder
 					{
 						PoNumber = orders.Key.PoNumber,
 						TaxType = orders.Key.TaxGroup,
@@ -92,41 +85,40 @@
 							from order in orders
 							group order by order.State
 								into states
-								select new StateGroup
+								select new FreightStateGroup
 								{
 									StateName = states.Key,
 									OrderLines = states.ToList()
 								}
 					};
 
-
 			return query.ToList();
 		}
 
-		private static IEnumerable<PurchaseOrder<OrderLine>> GetAllReports(IEnumerable<OrderLine> lines, string invoiceId)
-		{
-			var query =
-				from line in lines
-				group line by new { line.PoNumber, TaxGroup = line.TaxType }
-					into orders
-					select new PurchaseOrder<OrderLine>
-					{
-						PoNumber = orders.Key.PoNumber,
-						TaxType = orders.Key.TaxGroup,
-						InvoiceNumber = invoiceId,
-						States =
-							from order in orders
-							group order by order.State
-								into states
-								select new StateGroup
-								{
-									StateName = states.Key,
-									OrderLines = states
-								}
-					};
+    public IEnumerable<ProductPurchaseOrder> GetProductPurchaseOrders(string invoiceId)
+    {
+      var query =
+        from line in ProductLines
+        group line by new { line.PoNumber, TaxGroup = line.TaxType }
+          into orders
+          select new ProductPurchaseOrder
+          {
+            PoNumber = orders.Key.PoNumber,
+            TaxType = orders.Key.TaxGroup,
+            InvoiceNumber = invoiceId,
+            Recipient = _recipientRepository.Get("ML"),
+            States =
+              from order in orders
+              group order by order.State
+                into states
+                select new ProductStateGroup(_shippingCostService)
+                {
+                  StateName = states.Key,
+                  OrderLines = states.ToList()
+                }
+          };
 
-
-			return query.ToList();
-		}
+      return query.ToList();
+    }
 	}
 }

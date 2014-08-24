@@ -5,6 +5,7 @@
 	using System.Reflection;
 	using ChevronMonthlySub.Domain;
 	using ChevronMonthlySub.Extractor;
+	using FakeItEasy;
 	using FluentAssertions;
 	using NUnit.Framework;
 
@@ -31,7 +32,11 @@
 		[Test]
 		public void TestCreate()
 		{
-			var repo = new PurchaseOrderRepository(_extractor, _recipRepo);
+		  var shipService = A.Fake<IShippingCostService>();
+		  A.CallTo(() => shipService.BoxFee).Returns(2.50m);
+		  A.CallTo(() => shipService.PickPackFee).Returns(0.50m);
+
+      var repo = new PurchaseOrderRepository(_extractor, _recipRepo, shipService);
 			repo.FreightLines.Count().Should().Be(126);
 			repo.ProductLines.Count().Should().Be(351);
 		}
@@ -39,7 +44,11 @@
 		[Test]
 		public void ReportWithNoFreightLines_GetsOneBox()
 		{
-			var repo = new PurchaseOrderRepository(_extractor, _recipRepo);
+      var shipService = A.Fake<IShippingCostService>();
+      A.CallTo(() => shipService.BoxFee).Returns(2.50m);
+      A.CallTo(() => shipService.PickPackFee).Returns(0.50m);
+
+      var repo = new PurchaseOrderRepository(_extractor, _recipRepo, shipService);
 			var itemsWithOneBoxFor15142183 = repo.ProductLines
 				.Where(p => p.PoNumber == "15142183" && p.Boxes == 1);
 

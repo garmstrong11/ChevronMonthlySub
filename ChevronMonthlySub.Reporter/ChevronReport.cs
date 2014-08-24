@@ -1,48 +1,69 @@
 ﻿namespace ChevronMonthlySub.Reporter
 {
-	using System;
 	using Domain;
 	using FlexCel.Report;
 
-	public abstract class ChevronReport<T> : IChevronReport<T> where T : PurchaseOrder
+	public class ChevronReport
 	{
-		private string _outputDir;
-		public bool IsSummary { get; set; }
-		public FlexCelReport Report { get; set; }
-		public T PurchaseOrder { get; set; }
+	  private readonly ITemplatePathService _templatePathService;
+    
+    public PurchaseOrder PurchaseOrder { get; set; }
+    public bool IsSummary { get; set; }
+    public string DestinationDirectory { get; set; }
 
-		public virtual void BuildReport()
+	  public ChevronReport(ITemplatePathService templatePathService)
+	  {
+	    _templatePathService = templatePathService;
+	  }
+
+		public FlexCelReport CreateAndConfigureReport()
 		{
-			Report.AddTable("States", PurchaseOrder.States);
-			Report.SetValue("TaxType", PurchaseOrder.TaxType);
-			Report.SetValue("PoNumber", PurchaseOrder.PoNumber);
-			Report.SetValue("InvoiceNumber", PurchaseOrder.InvoiceNumber);
-			Report.SetValue("Recipient", PurchaseOrder.Recipient);
-		}
+		  var report = new FlexCelReport(true);
+      report.SetValue("TaxType", PurchaseOrder.TaxType);
+			report.SetValue("PoNumber", PurchaseOrder.PoNumber);
+			report.SetValue("InvoiceNumber", PurchaseOrder.InvoiceNumber);
+			report.SetValue("Recipient", PurchaseOrder.Recipient);
 
-		public abstract string OutputFilename { get; }
+		  var fpo = PurchaseOrder as FreightPurchaseOrder;
+		  if (fpo != null)
+		  {
+        report.AddTable("States", fpo.States);
+        report.SetValue("SubTotal", fpo.LineAmountSubtotal);
+        report.SetValue("TaxTotal", fpo.TaxAmountSubtotal);
+		  }
+
+		  var ppo = PurchaseOrder as ProductPurchaseOrder;
+		  if (ppo == null) return report;
+
+		  report.AddTable("States", ppo.States);
+		  report.SetValue("PickPackTotal", ppo.PickPackCharge);
+		  report.SetValue("BoxTotal", ppo.BoxCharge);
+
+		  return report;
+		}
 
 		public string Prefix
 		{
-			get { return IsSummary ? "Summary" : "Chevron FG"; }
+		  get { return IsSummary ? "Summary" : "Chevron FG"; }
 		}
 
-		public string Suffix
-		{
-			get
-			{
-				if (PurchaseOrder == null) {
-					throw new InvalidOperationException("PurchaseOrder not set");
-				}
+	  public string Suffix
+	  {
+	    get { return PurchaseOrder is FreightPurchaseOrder ? " FRT.xlsx" : ".xlsx"; }
+	  }
 
-				var po = PurchaseOrder as FreightPurchaseOrder;
-				return po != null ? " FRT.xlsx" : ".xlsx";
-			}
-		}
-
-		public string OutputDir
-		{
-			get { return _outputDir; }
-		}
+	  public string GetOutputFilename
+	  {
+	    get
+	    {
+	      return string.Format("{0} {1} {2} {3} {4}{5}",
+	        Prefix,
+	        PurchaseOrder.InvoiceNumber,
+	        PurchaseOrder.PoNumber,
+	        PurchaseOrder.TaxType,
+	        PurchaseOrder.Recipient.Initials,
+	        Suffix);
+	    }
+	  }
 	}
 }

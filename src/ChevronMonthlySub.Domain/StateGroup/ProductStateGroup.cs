@@ -1,7 +1,7 @@
 ﻿namespace ChevronMonthlySub.Domain
 {
-	using System.Collections.Generic;
-	using System.Linq;
+  using System.Collections.Generic;
+  using System.Linq;
 
 	public class ProductStateGroup : StateGroup
 	{
@@ -11,9 +11,9 @@
 		{
 			_shipCostService = shipCostService;
 		}
-		
-		public IEnumerable<ProductLine> OrderLines { get; set; }
 
+    public IEnumerable<ProductLine> OrderLines { get; set; } 
+		
 		public int ShipQty
 		{
 			get { return OrderLines.Sum(t => t.ShipQty); }

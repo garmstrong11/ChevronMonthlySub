@@ -6,7 +6,7 @@
 	{
 		IEnumerable<FreightLine> FreightLines { get; }
 		IEnumerable<ProductLine> ProductLines { get; }
-		IEnumerable<PurchaseOrder<ProductLine>> GetProductPurchaseOrders(string invoiceId);
-		IEnumerable<PurchaseOrder<FreightLine>> GetFreightPurchaseOrders(string invoiceId);
+		IEnumerable<ProductPurchaseOrder> GetProductPurchaseOrders(string invoiceId);
+		IEnumerable<FreightPurchaseOrder> GetFreightPurchaseOrders(string invoiceId);
 	}
 }

@@ -41,7 +41,7 @@
   <ItemGroup>
     <Compile Include="FlexCelOrderLineDto.cs" />
     <Compile Include="HardCodedRecipientRepository.cs" />
-    <Compile Include="IDataSettings.cs" />
+    <Compile Include="IChevronReportAdapter.cs" />
     <Compile Include="IExtractor.cs" />
     <Compile Include="InvalidStateException.cs" />
     <Compile Include="IPurchaseOrderRepository.cs" />
@@ -61,6 +61,7 @@
     <Compile Include="StateGroup\ProductStateGroup.cs" />
     <Compile Include="StateGroup\StateGroup.cs" />
     <Compile Include="TaxType.cs" />
+    <Compile Include="TemplatePathService.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
