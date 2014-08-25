@@ -2,14 +2,11 @@
 {
 	public abstract class PurchaseOrder
 	{
-	  protected ITemplatePathService TemplatePathService;
 	  protected IChevronReportAdapter ReportAdapter;
 
 	  protected PurchaseOrder(
-      ITemplatePathService templatePathService,
       IChevronReportAdapter reportAdapter)
 	  {
-	    TemplatePathService = templatePathService;
 	    ReportAdapter = reportAdapter;
 	  }
 

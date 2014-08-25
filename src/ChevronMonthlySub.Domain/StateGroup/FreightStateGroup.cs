@@ -16,5 +16,10 @@
 		{
 			get { return OrderLines.Sum(t => t.TaxAmount); }
 		}
+
+		public int TaxQuantity
+		{
+			get { return TaxAmountSubtotal > 0.0m ? 1 : 0; }
+		}
 	}
 }

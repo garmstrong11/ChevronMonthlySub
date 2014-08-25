@@ -7,14 +7,12 @@
 	using System.Reflection;
 	using ChevronMonthlySub.Domain;
 	using ChevronMonthlySub.Extractor;
-	using FlexCel.XlsAdapter;
 	using FluentAssertions;
 	using NUnit.Framework;
 
 	[TestFixture]
 	public class OrderLineExtractorTests
 	{
-		private XlsFile _xls;
 		private OrderLineExtractor _extractor;
 		private IList<FlexCelOrderLineDto> _dtos;
 
@@ -26,9 +24,15 @@
 				.Replace("file:\\", "")
 				.Replace("\\bin\\Debug", "");
 
-			_xls = new XlsFile(Path.Combine(projectPath, testFileName), false);
-			_extractor = new OrderLineExtractor(_xls);
+			//_xls = new XlsFile(Path.Combine(projectPath, testFileName), false);
+			_extractor = new OrderLineExtractor(Path.Combine(projectPath, testFileName));
 			_dtos = _extractor.Extract();
+		}
+
+		[Test]
+		public void SourcePath_ReturnsCorrectPath()
+		{
+			_extractor.SourcePath.Should().Be(@"F:\CODE\ChevronMonthlySub\src\ChevronMonthlySub.Tests\DataFiles");
 		}
 
 		[Test]

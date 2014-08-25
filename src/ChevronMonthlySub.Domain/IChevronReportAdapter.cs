@@ -1,13 +1,15 @@
 ﻿namespace ChevronMonthlySub.Domain
 {
-  using System.Collections.Generic;
+	using System;
+	using System.Collections.Generic;
 
   public interface IChevronReportAdapter
   {
     void AddTable<T>(string tableName, IEnumerable<T> value);
     void SetValue(string name, object value);
-    void Run(string templatePath, string outputPath);
+    void Run(bool isSummary);
 
-    bool IsSummary { get; set; }
+		Type Type { get; set; }
+		string OutputFileNameWithoutPrefix { get; set; }
   }
 }

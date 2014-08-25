@@ -10,10 +10,10 @@
 	{
 		private readonly XlsFile _xls;
 
-		public OrderLineExtractor(XlsFile xls)
-		{
-			_xls = xls;
-		}
+		//public OrderLineExtractor(XlsFile xls)
+		//{
+		//	_xls = xls;
+		//}
 
 		public OrderLineExtractor(string xlsPath)
 		{
@@ -21,8 +21,11 @@
 				throw new FileNotFoundException("Excel data file not found");
 			}
 
+			SourcePath = Path.GetDirectoryName(xlsPath);
 			_xls = new XlsFile(xlsPath);
 		}
+
+		public string SourcePath { get; private set; }
 		
 		public IList<FlexCelOrderLineDto> Extract()
 		{

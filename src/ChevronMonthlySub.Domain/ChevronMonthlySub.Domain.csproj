@@ -51,17 +51,17 @@
     <Compile Include="OrderLine\FreightLine.cs" />
     <Compile Include="OrderLine\OrderLine.cs" />
     <Compile Include="OrderLine\ProductLine.cs" />
-    <Compile Include="PurchaseOrderRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurchaseOrder\FreightPurchaseOrder.cs" />
     <Compile Include="PurchaseOrder\ProductPurchaseOrder.cs" />
     <Compile Include="PurchaseOrder\PurchaseOrder.cs" />
     <Compile Include="Recipient.cs" />
+    <Compile Include="ReportTemplate.cs" />
     <Compile Include="StateGroup\FreightStateGroup.cs" />
     <Compile Include="StateGroup\ProductStateGroup.cs" />
     <Compile Include="StateGroup\StateGroup.cs" />
     <Compile Include="TaxType.cs" />
-    <Compile Include="TemplatePathService.cs" />
+    <Compile Include="HardCodedTemplatePathService.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

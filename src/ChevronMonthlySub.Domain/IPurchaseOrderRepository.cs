@@ -8,5 +8,7 @@
 		IEnumerable<ProductLine> ProductLines { get; }
 		IEnumerable<ProductPurchaseOrder> GetProductPurchaseOrders(string invoiceId);
 		IEnumerable<FreightPurchaseOrder> GetFreightPurchaseOrders(string invoiceId);
+
+
 	}
 }

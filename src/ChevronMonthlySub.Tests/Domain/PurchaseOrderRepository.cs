@@ -1,18 +1,23 @@
-﻿namespace ChevronMonthlySub.Domain
+﻿namespace ChevronMonthlySub.Tests.Domain
 {
 	using System.Collections.Generic;
 	using System.Linq;
+	using ChevronMonthlySub.Domain;
+	using Reporter;
 
 	public class PurchaseOrderRepository : IPurchaseOrderRepository
 	{
 		private readonly List<OrderLine> _orderLines;
 		private readonly IRecipientRepository _recipientRepository;
 	  private readonly IShippingCostService _shippingCostService;
+		private readonly ITemplatePathService _templatePathService;
 
 		public PurchaseOrderRepository(
       IExtractor<FlexCelOrderLineDto> extractor, 
       IRecipientRepository recipientRepository, 
-      IShippingCostService shippingCostService)
+      IShippingCostService shippingCostService,
+			ITemplatePathService templatePathService
+			)
 		{
 			_orderLines = extractor.Extract()
         .Select(CreateOrderLine)
@@ -20,9 +25,11 @@
 
 			_recipientRepository = recipientRepository;
 		  _shippingCostService = shippingCostService;
+			_templatePathService = templatePathService;
 
 			AssignBoxCountsToProductLines();
 		}
+
 		
 		public IEnumerable<FreightLine> FreightLines
 		{
@@ -75,7 +82,7 @@
 				from line in FreightLines
 				group line by new { line.PoNumber, TaxGroup = line.TaxType }
 					into orders
-					select new FreightPurchaseOrder
+					select new FreightPurchaseOrder(new FlexcelChevronReportAdapter(new HardCodedTemplatePathService()))
 					{
 						PoNumber = orders.Key.PoNumber,
 						TaxType = orders.Key.TaxGroup,
@@ -101,8 +108,8 @@
         from line in ProductLines
         group line by new { line.PoNumber, TaxGroup = line.TaxType }
           into orders
-          select new ProductPurchaseOrder
-          {
+					select new ProductPurchaseOrder(new FlexcelChevronReportAdapter(new HardCodedTemplatePathService()))
+					{
             PoNumber = orders.Key.PoNumber,
             TaxType = orders.Key.TaxGroup,
             InvoiceNumber = invoiceId,

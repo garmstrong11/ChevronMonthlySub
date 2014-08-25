@@ -5,11 +5,12 @@
 
 	public class FreightPurchaseOrder : PurchaseOrder
 	{
-	  public FreightPurchaseOrder(
-      ITemplatePathService templatePathService, 
-      IChevronReportAdapter chevronReportAdapter) 
-      : base(templatePathService, chevronReportAdapter)
-	  { }
+		public FreightPurchaseOrder(
+			IChevronReportAdapter chevronReportAdapter)
+			: base(chevronReportAdapter)
+		{
+			chevronReportAdapter.Type = GetType();
+		}
 
 	  public IEnumerable<FreightStateGroup> States { get; set; } 
 
@@ -30,7 +31,7 @@
 
 	  public override string ToString()
 	  {
-	    return string.Format("{0}{1}", base.ToString(), " FRT.xlsx");
+	    return string.Format("{0} {1}", base.ToString(), "FRT.xlsx");
 	  }
 
 	  public override void ConfigureReport()
@@ -43,9 +44,9 @@
 
 	  public void RunReports()
 	  {
-	    var templatePath = TemplatePathService.
-      ReportAdapter.IsSummary = false;
-      ReportAdapter.Run();
+		  ReportAdapter.OutputFileNameWithoutPrefix = ToString();
+			ReportAdapter.Run(false);
+		  ReportAdapter.Run(true);
 	  }
 	}
 }
