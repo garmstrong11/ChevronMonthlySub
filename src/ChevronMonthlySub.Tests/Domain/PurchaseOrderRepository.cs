@@ -88,6 +88,7 @@
 						TaxType = orders.Key.TaxGroup,
 						InvoiceNumber = invoiceId,
 						Recipient = _recipientRepository.Get("ML"),
+						Description = "Initial Description to be filled in later",
 						States =
 							from order in orders
 							group order by order.State
@@ -114,6 +115,7 @@
             TaxType = orders.Key.TaxGroup,
             InvoiceNumber = invoiceId,
             Recipient = _recipientRepository.Get("ML"),
+						Description = "Initial Description to be filled in later",
             States =
               from order in orders
               group order by order.State

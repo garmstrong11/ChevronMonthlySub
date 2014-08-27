@@ -70,7 +70,7 @@
 		[Test]
 		public void CanRunProductReports()
 		{
-			var firstPo = _productPurchaseOrders.First();
+			var firstPo = _productPurchaseOrders.Skip(1).Take(1).First();
 			firstPo.ConfigureReport();
 			firstPo.RunReports();
 		}
