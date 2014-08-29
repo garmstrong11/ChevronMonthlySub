@@ -45,7 +45,7 @@
     <Compile Include="ChevronReport.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\ChevronMonthlySub.Domain\ChevronMonthlySub.Domain.csproj">
+    <ProjectReference Include="..\ChevronMonthlySub.Domain\ChevronMonthlySub.Domain.csproj">
       <Project>{a8e870ec-90c2-4c5b-9845-5facd6fbe333}</Project>
       <Name>ChevronMonthlySub.Domain</Name>
     </ProjectReference>
