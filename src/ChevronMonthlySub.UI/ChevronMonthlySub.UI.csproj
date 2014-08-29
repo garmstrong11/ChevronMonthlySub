@@ -74,8 +74,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Infra\RecipientRepository.cs" />
+    <Compile Include="Infra\ShippingCostService.cs" />
+    <Compile Include="Infra\TemplatePathService.cs" />
+    <Compile Include="ViewModels\IShell.cs" />
+    <Compile Include="ViewModels\ShellViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infra\DebugLogger.cs" />
+    <Compile Include="Infra\SiBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -102,6 +109,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ChevronMonthlySub.Domain\ChevronMonthlySub.Domain.csproj">
+      <Project>{a8e870ec-90c2-4c5b-9845-5facd6fbe333}</Project>
+      <Name>ChevronMonthlySub.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChevronMonthlySub.Extractor\ChevronMonthlySub.Extractor.csproj">
+      <Project>{9b540234-f015-463f-84b6-9beb7db27b97}</Project>
+      <Name>ChevronMonthlySub.Extractor</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChevronMonthlySub.Reporter\ChevronMonthlySub.Reporter.csproj">
+      <Project>{f87efe7a-2996-46c1-a4b2-799ea61e0a7b}</Project>
+      <Name>ChevronMonthlySub.Reporter</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\ShellView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

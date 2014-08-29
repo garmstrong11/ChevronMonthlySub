@@ -8,23 +8,103 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ChevronMonthlySub.UI.Properties
-{
-
-
-	[global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0")]
-	internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase
-	{
-
-		private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
-
-		public static Settings Default
-		{
-			get
-			{
-				return defaultInstance;
-			}
-		}
-	}
+namespace ChevronMonthlySub.UI.Properties {
+    
+    
+    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2.50")]
+        public decimal BoxFee {
+            get {
+                return ((decimal)(this["BoxFee"]));
+            }
+            set {
+                this["BoxFee"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.50")]
+        public decimal PickFee {
+            get {
+                return ((decimal)(this["PickFee"]));
+            }
+            set {
+                this["PickFee"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("FreightTemplate.xlsx")]
+        public string FreightTemplateName {
+            get {
+                return ((string)(this["FreightTemplateName"]));
+            }
+            set {
+                this["FreightTemplateName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("FreightSummaryTemplate.xlsx")]
+        public string SummaryFreightTemplateName {
+            get {
+                return ((string)(this["SummaryFreightTemplateName"]));
+            }
+            set {
+                this["SummaryFreightTemplateName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ProductTemplate.xlsx")]
+        public string ProductTemplateName {
+            get {
+                return ((string)(this["ProductTemplateName"]));
+            }
+            set {
+                this["ProductTemplateName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ProductSummaryTemplate.xlsx")]
+        public string SummaryProductTemplateName {
+            get {
+                return ((string)(this["SummaryProductTemplateName"]));
+            }
+            set {
+                this["SummaryProductTemplateName"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("F:\\Chevron\\Monthly Subsequent Orders")]
+        public string TemplateDir {
+            get {
+                return ((string)(this["TemplateDir"]));
+            }
+            set {
+                this["TemplateDir"] = value;
+            }
+        }
+    }
 }

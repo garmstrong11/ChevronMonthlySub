@@ -1,7 +1,27 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ChevronMonthlySub.UI.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="BoxFee" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">2.50</Value>
+    </Setting>
+    <Setting Name="PickFee" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.50</Value>
+    </Setting>
+    <Setting Name="FreightTemplateName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">FreightTemplate.xlsx</Value>
+    </Setting>
+    <Setting Name="SummaryFreightTemplateName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">FreightSummaryTemplate.xlsx</Value>
+    </Setting>
+    <Setting Name="ProductTemplateName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ProductTemplate.xlsx</Value>
+    </Setting>
+    <Setting Name="SummaryProductTemplateName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ProductSummaryTemplate.xlsx</Value>
+    </Setting>
+    <Setting Name="TemplateDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">F:\Chevron\Monthly Subsequent Orders</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>
