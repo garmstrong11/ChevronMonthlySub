@@ -10,7 +10,7 @@
 	using NUnit.Framework;
 
 	[TestFixture]
-	public class ReportDataRepositoryTests
+	public class PurchaseOrderRepositoryTests
 	{
 		private OrderLineExtractor _extractor;
 		private IRecipientRepository _recipRepo;

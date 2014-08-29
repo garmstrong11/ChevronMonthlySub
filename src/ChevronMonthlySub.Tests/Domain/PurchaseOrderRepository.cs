@@ -63,7 +63,7 @@
 											}).ToList();
 
 			var firstProducts = from line in ProductLines
-													group line by line.Destination into shipment
+													group line by new { line.Destination, line.PoNumber } into shipment
 													select shipment.First();
 
 			foreach (var product in firstProducts)
@@ -72,7 +72,7 @@
 					.FindAll(s => s.Destination == product.Destination && s.PoNumber == product.PoNumber);
 
 				// Make sure at least one box is sent to each destination:
-				product.Boxes = matches.Count == 0 ? 1 : matches.Count;
+				product.Boxes = matches.Count == 0 ? 1 : matches.Sum(b => b.BoxCount);
 			}
 		}
 
@@ -123,7 +123,7 @@
                 select new ProductStateGroup(_shippingCostService)
                 {
                   StateName = states.Key,
-                  OrderLines = states.ToList()
+                  OrderLines = states.OrderBy(s => s.Destination).ToList()
                 }
           };
 

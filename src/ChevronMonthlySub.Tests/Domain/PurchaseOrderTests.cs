@@ -68,11 +68,42 @@
 		}
 
 		[Test]
-		public void CanRunProductReports()
+		public void CanRunProductReport()
 		{
 			var firstPo = _productPurchaseOrders.Skip(1).Take(1).First();
 			firstPo.ConfigureReport();
 			firstPo.RunReports();
+		}
+
+		[Test]
+		public void RunsAllReports()
+		{
+			foreach (var fpo in _freightPurchaseOrders) {
+				fpo.ConfigureReport();
+				fpo.RunReports();
+			}
+			foreach (var ppo in _productPurchaseOrders) {
+				ppo.ConfigureReport();
+				ppo.RunReports();
+			}
+		}
+
+		[TestCase("AL", Result = 22)]
+		[TestCase("AZ", Result = 3)]
+		[TestCase("CA", Result = 15)]
+		[TestCase("GA", Result = 1)]
+		[TestCase("LA", Result = 4)]
+		[TestCase("MS", Result = 1)]
+		[TestCase("NM", Result = 1)]
+		[TestCase("NV", Result = 4)]
+		[TestCase("UT", Result = 1)]
+		[TestCase("WA", Result = 5)]
+		public int AL15146759_BoxFees_MatchManualReport(string stateName)
+		{
+			var po15146759 = _productPurchaseOrders.First(p => p.PoNumber == "15146759");
+			var state = po15146759.States.First(s => s.StateName == stateName);
+
+			return state.BoxCount;
 		}
 	}
 }

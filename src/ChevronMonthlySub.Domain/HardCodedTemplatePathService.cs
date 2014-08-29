@@ -17,7 +17,7 @@
 
 		public HardCodedTemplatePathService()
 		{
-			OutputDirectory = TemplateDir;
+			OutputDirectory = Path.Combine(TemplateDir, "TestReportOutput");
 		}
 
 		public string GetTemplatePath(bool isSummary, Type purchaseOrderType)

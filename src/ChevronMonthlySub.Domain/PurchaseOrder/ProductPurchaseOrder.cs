@@ -37,7 +37,7 @@
 		public override void ConfigureReport()
 		{
 			base.ConfigureReport();
-			ReportAdapter.AddTable("States", States);
+			ReportAdapter.AddTable("States", States.OrderBy(s => s.StateName));
 			ReportAdapter.SetValue("PickPackTotal", PickPackCharge);
 			ReportAdapter.SetValue("BoxTotal", BoxCharge);
 		}
