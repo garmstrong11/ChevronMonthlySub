@@ -74,6 +74,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Infra\Extensions.cs" />
     <Compile Include="Infra\RecipientRepository.cs" />
     <Compile Include="Infra\ShippingCostService.cs" />
     <Compile Include="Infra\TemplatePathService.cs" />
