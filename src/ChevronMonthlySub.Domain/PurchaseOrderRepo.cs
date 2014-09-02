@@ -3,7 +3,7 @@
 	using System.Collections.Generic;
 	using System.Linq;
 
-	public class PurchaseOrderRepo : IPurchaseOrderRepository
+	public class PurchaseOrderRepo : IPurchaseOrderService
 	{
 		private readonly List<OrderLine> _orderLines;
 		private readonly IRecipientRepository _recipientRepository;
@@ -28,7 +28,13 @@
 			//AssignBoxCountsToProductLines();
 		}
 
-		
+
+		public string SourcePath
+		{
+			get { throw new System.NotImplementedException(); }
+			set { throw new System.NotImplementedException(); }
+		}
+
 		public IEnumerable<FreightLine> FreightLines
 		{
 			get { return _orderLines.OfType<FreightLine>(); }

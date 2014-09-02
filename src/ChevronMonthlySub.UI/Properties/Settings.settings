@@ -21,7 +21,7 @@
       <Value Profile="(Default)">ProductSummaryTemplate.xlsx</Value>
     </Setting>
     <Setting Name="TemplateDir" Type="System.String" Scope="User">
-      <Value Profile="(Default)">F:\Chevron\Monthly Subsequent Orders</Value>
+      <Value Profile="(Default)">\\NLS_SERVER\Global_User\garmstrong\Chevron</Value>
     </Setting>
   </Settings>
 </SettingsFile>

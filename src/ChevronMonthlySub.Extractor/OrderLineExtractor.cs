@@ -9,26 +9,32 @@
 	public class OrderLineExtractor : IExtractor<FlexCelOrderLineDto>
 	{
 		private readonly XlsFile _xls;
+		private string _sourcePath;
 
-		//public OrderLineExtractor(XlsFile xls)
-		//{
-		//	_xls = xls;
-		//}
-
-		public OrderLineExtractor(string xlsPath)
+		public OrderLineExtractor()
 		{
-			if (!File.Exists(xlsPath)) {
-				throw new FileNotFoundException("Excel data file not found");
-			}
-
-			SourcePath = Path.GetDirectoryName(xlsPath);
-			_xls = new XlsFile(xlsPath);
+			_xls = new XlsFile();
 		}
 
-		public string SourcePath { get; private set; }
-		
+		public string SourcePath
+		{
+			get { return _sourcePath; }
+			set
+			{
+				_sourcePath = value;
+				if (!File.Exists(_sourcePath)) {
+					throw new FileNotFoundException("Excel data file not found");
+				}
+				_xls.Open(_sourcePath);
+			}
+		}
+
 		public IList<FlexCelOrderLineDto> Extract()
 		{
+			if (string.IsNullOrWhiteSpace(SourcePath)) {
+				throw new InvalidOperationException("No source file specified from which to extract data");
+			}
+			
 			var result = new List<FlexCelOrderLineDto>();
 			
 			for (var row = 2; row <= _xls.RowCount; row++) {

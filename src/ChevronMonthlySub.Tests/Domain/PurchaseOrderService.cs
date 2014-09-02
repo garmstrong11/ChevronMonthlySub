@@ -5,14 +5,14 @@
 	using ChevronMonthlySub.Domain;
 	using Reporter;
 
-	public class PurchaseOrderRepository : IPurchaseOrderRepository
+	public class PurchaseOrderService : IPurchaseOrderService
 	{
 		private readonly List<OrderLine> _orderLines;
 		private readonly IRecipientRepository _recipientRepository;
 	  private readonly IShippingCostService _shippingCostService;
 		private readonly ITemplatePathService _templatePathService;
 
-		public PurchaseOrderRepository(
+		public PurchaseOrderService(
       IExtractor<FlexCelOrderLineDto> extractor, 
       IRecipientRepository recipientRepository, 
       IShippingCostService shippingCostService,
@@ -30,7 +30,13 @@
 			AssignBoxCountsToProductLines();
 		}
 
-		
+
+		public string SourcePath
+		{
+			get { throw new System.NotImplementedException(); }
+			set { throw new System.NotImplementedException(); }
+		}
+
 		public IEnumerable<FreightLine> FreightLines
 		{
 			get { return _orderLines.OfType<FreightLine>(); }

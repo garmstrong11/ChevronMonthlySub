@@ -42,7 +42,7 @@
 			ReportAdapter.SetValue("BoxTotal", BoxCharge);
 		}
 
-		public void RunReports()
+		public override void RunReports()
 		{
 			ReportAdapter.OutputFileNameWithoutPrefix = ToString();
 			ReportAdapter.Run(false);

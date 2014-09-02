@@ -5,6 +5,9 @@
 	using System.Windows;
 	using Caliburn.Micro;
 	using Domain;
+	using Extractor;
+	using Reporter;
+	using Services;
 	using SimpleInjector;
 	using ViewModels;
 
@@ -29,6 +32,10 @@
 			_container.RegisterSingle<IRecipientRepository, RecipientRepository>();
 			_container.RegisterSingle<IShippingCostService, ShippingCostService>();
 			_container.RegisterSingle<ITemplatePathService, TemplatePathService>();
+			_container.RegisterSingle<IPurchaseOrderService, PurchaseOrderService>();
+
+			_container.Register<IExtractor<FlexCelOrderLineDto>, OrderLineExtractor>();
+			_container.Register<IChevronReportAdapter, FlexcelChevronReportAdapter>();
 
 			_container.Verify();
 		}

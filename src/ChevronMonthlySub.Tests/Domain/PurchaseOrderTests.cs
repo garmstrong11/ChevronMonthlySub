@@ -17,7 +17,7 @@
 		private IRecipientRepository _recipRepo;
 		private IShippingCostService _shipService;
 		private ITemplatePathService _templatePathService;
-		private PurchaseOrderRepository _repo;
+		private PurchaseOrderService _repo;
 		private IEnumerable<FreightPurchaseOrder> _freightPurchaseOrders;
 		private IEnumerable<ProductPurchaseOrder> _productPurchaseOrders;
 			
@@ -31,7 +31,8 @@
 
 			var projectPath = directoryName.Replace("file:\\", "").Replace("\\bin\\Debug", "");
 
-			_extractor = new OrderLineExtractor(Path.Combine(projectPath, testFileName));
+			_extractor = new OrderLineExtractor();
+			_extractor.SourcePath = Path.Combine(projectPath, testFileName);
 			_recipRepo = new HardCodedRecipientRepository();
 			_shipService = A.Fake<IShippingCostService>();
 			_templatePathService = new HardCodedTemplatePathService();
@@ -39,7 +40,7 @@
 			A.CallTo(() => _shipService.BoxFee).Returns(2.50m);
 			A.CallTo(() => _shipService.PickPackFee).Returns(0.50m);
 
-			_repo = new PurchaseOrderRepository(_extractor, _recipRepo, _shipService, _templatePathService);
+			_repo = new PurchaseOrderService(_extractor, _recipRepo, _shipService, _templatePathService);
 			_freightPurchaseOrders = _repo.GetFreightPurchaseOrders("462988");
 			_productPurchaseOrders = _repo.GetProductPurchaseOrders("462988");
 		}

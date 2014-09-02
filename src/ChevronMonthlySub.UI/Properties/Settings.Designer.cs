@@ -97,7 +97,7 @@ namespace ChevronMonthlySub.UI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("F:\\Chevron\\Monthly Subsequent Orders")]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\\\NLS_SERVER\\Global_User\\garmstrong\\Chevron")]
         public string TemplateDir {
             get {
                 return ((string)(this["TemplateDir"]));

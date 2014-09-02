@@ -24,8 +24,8 @@
 				.Replace("file:\\", "")
 				.Replace("\\bin\\Debug", "");
 
-			//_xls = new XlsFile(Path.Combine(projectPath, testFileName), false);
-			_extractor = new OrderLineExtractor(Path.Combine(projectPath, testFileName));
+			_extractor = new OrderLineExtractor();
+			_extractor.SourcePath = Path.Combine(projectPath, testFileName);
 			_dtos = _extractor.Extract();
 		}
 

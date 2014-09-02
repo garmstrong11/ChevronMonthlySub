@@ -25,7 +25,8 @@
 
 			var projectPath = directoryName.Replace("file:\\", "").Replace("\\bin\\Debug", "");
 
-			_extractor = new OrderLineExtractor(Path.Combine(projectPath, testFileName));
+			_extractor = new OrderLineExtractor();
+			_extractor.SourcePath = Path.Combine(projectPath, testFileName);
 			_recipRepo = new HardCodedRecipientRepository();
 		}
 
@@ -36,7 +37,7 @@
 		//	A.CallTo(() => shipService.BoxFee).Returns(2.50m);
 		//	A.CallTo(() => shipService.PickPackFee).Returns(0.50m);
 
-		//	var repo = new PurchaseOrderRepository(_extractor, _recipRepo, shipService);
+		//	var repo = new PurchaseOrderService(_extractor, _recipRepo, shipService);
 		//	repo.FreightLines.Count().Should().Be(126);
 		//	repo.ProductLines.Count().Should().Be(351);
 		//}
@@ -48,7 +49,7 @@
 		//	A.CallTo(() => shipService.BoxFee).Returns(2.50m);
 		//	A.CallTo(() => shipService.PickPackFee).Returns(0.50m);
 
-		//	var repo = new PurchaseOrderRepository(_extractor, _recipRepo, shipService);
+		//	var repo = new PurchaseOrderService(_extractor, _recipRepo, shipService);
 		//	var itemsWithOneBoxFor15142183 = repo.ProductLines
 		//		.Where(p => p.PoNumber == "15142183" && p.Boxes == 1);
 

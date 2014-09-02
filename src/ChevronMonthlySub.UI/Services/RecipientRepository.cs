@@ -1,4 +1,4 @@
-﻿namespace ChevronMonthlySub.UI.Infra
+﻿namespace ChevronMonthlySub.UI.Services
 {
 	using System.Collections.Generic;
 	using Domain;

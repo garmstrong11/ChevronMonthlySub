@@ -6,16 +6,29 @@
         Background="LightGray">
     <Grid Margin="9">
     <Grid.RowDefinitions>
-      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
     <StackPanel>
-      <TextBox x:Name="RowSourcePath" 
-               Height="36"
-               cal:Message.Attach="[Event PreviewDragOver] = [Action HandleFolderDrag($eventArgs)];[Event PreviewDrop] = [Action HandleFolderDrop($executionContext]"/>
       <Label Content="Drop Report here"
-             HorizontalAlignment="Left"/>
+             HorizontalAlignment="Left"
+             Padding="0"/>
+      <TextBox x:Name="RowSourcePath" 
+               Height="24"
+               cal:Message.Attach="[Event PreviewDragOver] = [Action HandleFileDrag($eventArgs)];[Event PreviewDrop] = [Action HandleFileDrop($executionContext]"/>
+    </StackPanel>
+      
+    <ContentControl x:Name="PurchaseOrders"
+                    Grid.Row="1"
+                    Margin="0 9"/>
+      
+    <StackPanel Grid.Row="2"
+                Orientation="Horizontal"
+                HorizontalAlignment="Right">
+      <Button x:Name="RunReports"
+              Content="Run Reports"
+              Padding="9 3"/>
     </StackPanel>
 
   </Grid>

@@ -45,7 +45,7 @@
     <Compile Include="IChevronReportAdapter.cs" />
     <Compile Include="IExtractor.cs" />
     <Compile Include="InvalidStateException.cs" />
-    <Compile Include="IPurchaseOrderRepository.cs" />
+    <Compile Include="IPurchaseOrderService.cs" />
     <Compile Include="IRecipientRepository.cs" />
     <Compile Include="IShippingCostService.cs" />
     <Compile Include="ITemplatePathService.cs" />

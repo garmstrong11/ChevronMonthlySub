@@ -26,6 +26,8 @@
 			ReportAdapter.SetValue("Description", Description);
 	  }
 
+		public abstract void RunReports();
+
 	  public override string ToString()
 	  {
 	    return string.Format("{0} {1} {2} {3}", InvoiceNumber, PoNumber, Recipient.Initials, TaxType);

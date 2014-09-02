@@ -42,7 +42,7 @@
       ReportAdapter.SetValue("TaxTotal", TaxAmountSubtotal);
 	  }
 
-	  public void RunReports()
+	  public override void RunReports()
 	  {
 		  ReportAdapter.OutputFileNameWithoutPrefix = ToString();
 			ReportAdapter.Run(false);

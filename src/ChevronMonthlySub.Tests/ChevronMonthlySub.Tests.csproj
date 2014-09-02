@@ -56,7 +56,7 @@
   <ItemGroup>
     <Compile Include="Domain\PurchaseOrderTests.cs" />
     <Compile Include="Domain\OrderLineTest.cs" />
-    <Compile Include="Domain\PurchaseOrderRepository.cs" />
+    <Compile Include="Domain\PurchaseOrderService.cs" />
     <Compile Include="Domain\PurchaseOrderRepositoryTests.cs" />
     <Compile Include="Extractor\OrderLineExtractorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

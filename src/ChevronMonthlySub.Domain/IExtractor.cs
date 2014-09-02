@@ -5,6 +5,6 @@
 	public interface IExtractor<T>
 	{
 		IList<T> Extract();
-		string SourcePath { get; }
+		string SourcePath { get; set; }
 	}
 }

@@ -75,11 +75,17 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Infra\Extensions.cs" />
-    <Compile Include="Infra\RecipientRepository.cs" />
-    <Compile Include="Infra\ShippingCostService.cs" />
-    <Compile Include="Infra\TemplatePathService.cs" />
+    <Compile Include="Services\PurchaseOrderService.cs" />
+    <Compile Include="Services\RecipientRepository.cs" />
+    <Compile Include="Services\ShippingCostService.cs" />
+    <Compile Include="Services\TemplatePathService.cs" />
     <Compile Include="ViewModels\IShell.cs" />
+    <Compile Include="ViewModels\PurchaseOrderRowViewModel.cs" />
+    <Compile Include="ViewModels\PurchaseOrdersViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="Views\PurchaseOrdersView.xaml.cs">
+      <DependentUpon>PurchaseOrdersView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infra\DebugLogger.cs" />
@@ -126,6 +132,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\PurchaseOrdersView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
