@@ -14,7 +14,7 @@
 	public class PurchaseOrderTests
 	{
 		private OrderLineExtractor _extractor;
-		private IRecipientRepository _recipRepo;
+		private IRequestorService _recipRepo;
 		private IShippingCostService _shipService;
 		private ITemplatePathService _templatePathService;
 		private PurchaseOrderService _repo;
@@ -33,7 +33,7 @@
 
 			_extractor = new OrderLineExtractor();
 			_extractor.SourcePath = Path.Combine(projectPath, testFileName);
-			_recipRepo = new HardCodedRecipientRepository();
+			_recipRepo = new HardCodedRequestorService();
 			_shipService = A.Fake<IShippingCostService>();
 			_templatePathService = new HardCodedTemplatePathService();
 

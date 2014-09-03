@@ -9,7 +9,7 @@
 	public class PurchaseOrderService : IPurchaseOrderService
 	{
 		private List<OrderLine> _orderLines;
-		private readonly IRecipientRepository _recipientRepository;
+		private readonly IRequestorService _requestorService;
 		private readonly IShippingCostService _shippingCostService;
 		private readonly IExtractor<FlexCelOrderLineDto> _extractor;
 		private readonly ITemplatePathService _templatePathService;
@@ -17,13 +17,13 @@
 
 		public PurchaseOrderService(
       IExtractor<FlexCelOrderLineDto> extractor, 
-      IRecipientRepository recipientRepository, 
+      IRequestorService requestorService, 
       IShippingCostService shippingCostService,
 			ITemplatePathService templatePathService
 			)
 		{
 			_extractor = extractor;
-			_recipientRepository = recipientRepository;
+			_requestorService = requestorService;
 		  _shippingCostService = shippingCostService;
 			_templatePathService = templatePathService;
 		}
@@ -98,7 +98,7 @@
 						PoNumber = orders.Key.PoNumber,
 						TaxType = orders.Key.TaxGroup,
 						InvoiceNumber = invoiceId,
-						Recipient = _recipientRepository.Get("KH"),
+						Requestor = _requestorService.Get("KH"),
 						Description = "Initial Description to be filled in later",
 						States =
 							from order in orders
@@ -125,7 +125,7 @@
 						PoNumber = orders.Key.PoNumber,
 						TaxType = orders.Key.TaxGroup,
 						InvoiceNumber = invoiceId,
-						Recipient = _recipientRepository.Get("KH"),
+						Requestor = _requestorService.Get("KH"),
 						Description = "Initial Description to be filled in later",
 						States =
 							from order in orders

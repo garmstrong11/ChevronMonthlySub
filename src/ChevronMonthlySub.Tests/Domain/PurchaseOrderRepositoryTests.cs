@@ -13,7 +13,7 @@
 	public class PurchaseOrderRepositoryTests
 	{
 		private OrderLineExtractor _extractor;
-		private IRecipientRepository _recipRepo;
+		private IRequestorService _recipRepo;
 
 		[TestFixtureSetUp]
 		public void FixtureInit()
@@ -27,7 +27,7 @@
 
 			_extractor = new OrderLineExtractor();
 			_extractor.SourcePath = Path.Combine(projectPath, testFileName);
-			_recipRepo = new HardCodedRecipientRepository();
+			_recipRepo = new HardCodedRequestorService();
 		}
 
 		//[Test]

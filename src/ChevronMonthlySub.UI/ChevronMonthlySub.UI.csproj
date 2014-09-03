@@ -76,7 +76,7 @@
     </Compile>
     <Compile Include="Infra\Extensions.cs" />
     <Compile Include="Services\PurchaseOrderService.cs" />
-    <Compile Include="Services\RecipientRepository.cs" />
+    <Compile Include="Services\RequestorService.cs" />
     <Compile Include="Services\ShippingCostService.cs" />
     <Compile Include="Services\TemplatePathService.cs" />
     <Compile Include="ViewModels\IShell.cs" />

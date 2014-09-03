@@ -1,19 +1,19 @@
 ﻿namespace ChevronMonthlySub.Domain
 {
-	public class Recipient
+	public class Requestor
 	{
 		public int Id { get; set; }
 		public string Initials { get; set; }
 		public string Name { get; set; }
 
-		protected bool Equals(Recipient other)
+		protected bool Equals(Requestor other)
 		{
 			return string.Equals(Name, other.Name) 
 				&& string.Equals(Initials, other.Initials) 
 				&& Id == other.Id;
 		}
 
-		public Recipient(int id, string initials, string name)
+		public Requestor(int id, string initials, string name)
 		{
 			Name = name;
 			Initials = initials;
@@ -24,7 +24,7 @@
 		{
 			if (ReferenceEquals(null, obj)) return false;
 			if (ReferenceEquals(this, obj)) return true;
-			return obj.GetType() == GetType() && Equals((Recipient) obj);
+			return obj.GetType() == GetType() && Equals((Requestor) obj);
 		}
 
 		public override int GetHashCode()
@@ -37,12 +37,12 @@
 			}
 		}
 
-		public static bool operator ==(Recipient left, Recipient right)
+		public static bool operator ==(Requestor left, Requestor right)
 		{
 			return Equals(left, right);
 		}
 
-		public static bool operator !=(Recipient left, Recipient right)
+		public static bool operator !=(Requestor left, Requestor right)
 		{
 			return !Equals(left, right);
 		}

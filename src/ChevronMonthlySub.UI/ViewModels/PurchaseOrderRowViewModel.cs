@@ -9,7 +9,7 @@
 		private TaxType _taxType;
 		private string _poNumber;
 		private string _invoiceNumber;
-		private Recipient _recipient;
+		private Requestor _requestor;
 		private string _description;
 
 		public PurchaseOrderRowViewModel(PurchaseOrder purchaseOrder)
@@ -24,7 +24,7 @@
 			_taxType = _purchaseOrder.TaxType;
 			_poNumber = _purchaseOrder.PoNumber;
 			_invoiceNumber = _purchaseOrder.InvoiceNumber;
-			_recipient = _purchaseOrder.Recipient;
+			_requestor = _purchaseOrder.Requestor;
 			_description = _purchaseOrder.Description;
 		}
 
@@ -62,15 +62,15 @@
 			}
 		}
 
-		public Recipient Recipient
+		public Requestor Requestor
 		{
-			get { return _recipient; }
+			get { return _requestor; }
 			set
 			{
-				if (Equals(value, _recipient)) return;
-				_recipient = value;
-				_purchaseOrder.Recipient = value;
-				NotifyOfPropertyChange(() => Recipient);
+				if (Equals(value, _requestor)) return;
+				_requestor = value;
+				_purchaseOrder.Requestor = value;
+				NotifyOfPropertyChange(() => Requestor);
 			}
 		}
 

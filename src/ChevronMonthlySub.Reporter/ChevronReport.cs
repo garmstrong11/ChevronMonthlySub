@@ -22,7 +22,7 @@
       report.SetValue("TaxType", PurchaseOrder.TaxType);
 			report.SetValue("PoNumber", PurchaseOrder.PoNumber);
 			report.SetValue("InvoiceNumber", PurchaseOrder.InvoiceNumber);
-			report.SetValue("Recipient", PurchaseOrder.Recipient);
+			report.SetValue("Requestor", PurchaseOrder.Requestor);
 
 		  var fpo = PurchaseOrder as FreightPurchaseOrder;
 		  if (fpo != null)
@@ -61,7 +61,7 @@
 	        PurchaseOrder.InvoiceNumber,
 	        PurchaseOrder.PoNumber,
 	        PurchaseOrder.TaxType,
-	        PurchaseOrder.Recipient.Initials,
+	        PurchaseOrder.Requestor.Initials,
 	        Suffix);
 	    }
 	  }

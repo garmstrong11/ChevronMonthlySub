@@ -29,7 +29,7 @@
 			_container.Register<IShell, ShellViewModel>();
 			_container.RegisterSingle<IEventAggregator, EventAggregator>();
 
-			_container.RegisterSingle<IRecipientRepository, RecipientRepository>();
+			_container.RegisterSingle<IRequestorService, RequestorService>();
 			_container.RegisterSingle<IShippingCostService, ShippingCostService>();
 			_container.RegisterSingle<ITemplatePathService, TemplatePathService>();
 			_container.RegisterSingle<IPurchaseOrderService, PurchaseOrderService>();

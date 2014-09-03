@@ -40,13 +40,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FlexCelOrderLineDto.cs" />
-    <Compile Include="HardCodedRecipientRepository.cs" />
+    <Compile Include="HardCodedRequestorService.cs" />
     <Compile Include="HardCodedShippingCostService.cs" />
     <Compile Include="IChevronReportAdapter.cs" />
     <Compile Include="IExtractor.cs" />
     <Compile Include="InvalidStateException.cs" />
     <Compile Include="IPurchaseOrderService.cs" />
-    <Compile Include="IRecipientRepository.cs" />
+    <Compile Include="IRequestorService.cs" />
     <Compile Include="IShippingCostService.cs" />
     <Compile Include="ITemplatePathService.cs" />
     <Compile Include="OrderLine\FreightLine.cs" />
@@ -57,7 +57,7 @@
     <Compile Include="PurchaseOrder\FreightPurchaseOrder.cs" />
     <Compile Include="PurchaseOrder\ProductPurchaseOrder.cs" />
     <Compile Include="PurchaseOrder\PurchaseOrder.cs" />
-    <Compile Include="Recipient.cs" />
+    <Compile Include="Requestor.cs" />
     <Compile Include="ReportTemplate.cs" />
     <Compile Include="StateGroup\FreightStateGroup.cs" />
     <Compile Include="StateGroup\ProductStateGroup.cs" />
