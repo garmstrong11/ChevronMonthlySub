@@ -6,14 +6,19 @@
 	public class ProductStateGroup : StateGroup
 	{
 		private readonly IShippingCostService _shipCostService;
+		private IEnumerable<ProductLine> _orderLines;
 
 		public ProductStateGroup(IShippingCostService shipCostService)
 		{
 			_shipCostService = shipCostService;
 		}
 
-    public IEnumerable<ProductLine> OrderLines { get; set; } 
-		
+		public IEnumerable<ProductLine> OrderLines
+		{
+			get { return _orderLines.OrderBy(p => p.OrderNumber); }
+			set { _orderLines = value; }
+		}
+
 		public int ShipQty
 		{
 			get { return OrderLines.Sum(t => t.ShipQty); }

@@ -36,6 +36,7 @@
 			}
 			
 			var result = new List<FlexCelOrderLineDto>();
+			_xls.ActiveSheet = 1;
 			
 			for (var row = 2; row <= _xls.RowCount; row++) {
 				var dto = new FlexCelOrderLineDto

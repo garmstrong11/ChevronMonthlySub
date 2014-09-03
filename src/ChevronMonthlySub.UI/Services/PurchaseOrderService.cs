@@ -98,7 +98,7 @@
 						PoNumber = orders.Key.PoNumber,
 						TaxType = orders.Key.TaxGroup,
 						InvoiceNumber = invoiceId,
-						Recipient = _recipientRepository.Get("ML"),
+						Recipient = _recipientRepository.Get("KH"),
 						Description = "Initial Description to be filled in later",
 						States =
 							from order in orders
@@ -125,7 +125,7 @@
 						PoNumber = orders.Key.PoNumber,
 						TaxType = orders.Key.TaxGroup,
 						InvoiceNumber = invoiceId,
-						Recipient = _recipientRepository.Get("ML"),
+						Recipient = _recipientRepository.Get("KH"),
 						Description = "Initial Description to be filled in later",
 						States =
 							from order in orders

@@ -19,6 +19,8 @@
         <DataGridTextColumn Header="Tax Type"
                               IsReadOnly="True"
                               Binding="{Binding TaxType}"/>
+        <DataGridTextColumn Header="Description"
+                            Binding="{Binding Description}"/>
       </DataGrid.Columns>    
     </DataGrid>
 </UserControl>

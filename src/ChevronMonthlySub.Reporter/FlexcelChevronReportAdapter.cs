@@ -30,7 +30,7 @@
 
     public void Run(bool isSummary)
     {
-      _report.SetValue("LastDay", GetLastDayOfThisMonthAsDouble());
+      _report.SetValue("LastDay", GetLastDayOfPreviousMonthAsDouble());
 
 			var prefix = isSummary ? "Summary" : "Chevron FG";
       var outputFilename = string.Format("{0} {1}", prefix, OutputFileNameWithoutPrefix);
@@ -45,10 +45,12 @@
 
 	  public string OutputFileNameWithoutPrefix { get; set; }
 
-		private static double GetLastDayOfThisMonthAsDouble()
+		private static double GetLastDayOfPreviousMonthAsDouble()
 		{
 			var now = DateTime.Now;
-			var lastDay = new DateTime(now.Year, now.Month, DateTime.DaysInMonth(now.Year, now.Month));
+			var previousMonth = now.Month - 1;
+
+			var lastDay = new DateTime(now.Year, previousMonth, DateTime.DaysInMonth(now.Year, now.Month));
 			return FlxDateTime.ToOADate(lastDay, false);
 		}
   }

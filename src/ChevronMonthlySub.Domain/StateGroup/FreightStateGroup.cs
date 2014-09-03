@@ -5,9 +5,15 @@
 
 	public class FreightStateGroup : StateGroup
 	{
-    public IEnumerable<FreightLine> OrderLines { get; set; } 
-    
-    public decimal LineAmountSubtotal
+		private IEnumerable<FreightLine> _orderLines;
+
+		public IEnumerable<FreightLine> OrderLines
+		{
+			get { return _orderLines.OrderBy(p => p.OrderNumber); }
+			set { _orderLines = value; }
+		}
+
+		public decimal LineAmountSubtotal
 		{
 			get { return OrderLines.Sum(t => t.LineAmount); }
 		}
