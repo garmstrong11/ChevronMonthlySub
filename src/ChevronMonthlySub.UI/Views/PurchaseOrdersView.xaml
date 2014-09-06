@@ -1,26 +1,41 @@
 ﻿<UserControl x:Class="ChevronMonthlySub.UI.Views.PurchaseOrdersView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="600">
-    <DataGrid ItemsSource="{Binding Items}"
-              AutoGenerateColumns="False"
-              CanUserReorderColumns="True"
-              CanUserSortColumns="True">
-      <DataGrid.Columns>
-        <DataGridTextColumn Header="SO Type "
-                              IsReadOnly="True"
-                              Binding="{Binding PoType}"/>
-        <DataGridTextColumn Header="SO Number"
-                              IsReadOnly="False"
-                              Binding="{Binding PoNumber}"/>
-        <DataGridTextColumn Header="Tax Type"
-                              IsReadOnly="True"
-                              Binding="{Binding TaxType}"/>
-        <DataGridTextColumn Header="Description"
-                            Binding="{Binding Description}"/>
-      </DataGrid.Columns>    
-    </DataGrid>
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="30" d:DesignWidth="600">
+  <DataGrid ItemsSource="{Binding Items}"
+            AutoGenerateColumns="False"
+            CanUserReorderColumns="True"
+            CanUserSortColumns="True">
+    <DataGrid.Columns>
+      <DataGridTextColumn Header="SO Type "
+                          IsReadOnly="True"
+                          Binding="{Binding PoType}" />
+      <DataGridTextColumn Header="SO Number"
+                          IsReadOnly="False"
+                          Binding="{Binding PoNumber}" />
+      <DataGridTextColumn Header="Tax Type"
+                          IsReadOnly="True"
+                          Binding="{Binding TaxType}" />
+      <DataGridComboBoxColumn Header="Requestor"
+                              SelectedValueBinding="{Binding SelectedRequestor}">
+        <DataGridComboBoxColumn.ElementStyle>
+          <Style TargetType="ComboBox">
+            <Setter Property="ItemsSource" Value="{Binding Requestors}" />
+            <Setter Property="DisplayMemberPath" Value="Name" />
+          </Style>
+        </DataGridComboBoxColumn.ElementStyle>
+        <DataGridComboBoxColumn.EditingElementStyle>
+          <Style TargetType="ComboBox">
+            <Setter Property="ItemsSource" Value="{Binding Requestors}" />
+            <Setter Property="DisplayMemberPath" Value="Name" />
+          </Style>
+        </DataGridComboBoxColumn.EditingElementStyle>
+      </DataGridComboBoxColumn>
+      <DataGridTextColumn Header="Description"
+                          Binding="{Binding Description}" />
+    </DataGrid.Columns>
+  </DataGrid>
 </UserControl>

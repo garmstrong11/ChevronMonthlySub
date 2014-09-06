@@ -45,10 +45,13 @@
     <Compile Include="IChevronReportAdapter.cs" />
     <Compile Include="IExtractor.cs" />
     <Compile Include="InvalidStateException.cs" />
+    <Compile Include="IOrderKeyFactory.cs" />
     <Compile Include="IPurchaseOrderService.cs" />
     <Compile Include="IRequestorService.cs" />
     <Compile Include="IShippingCostService.cs" />
     <Compile Include="ITemplatePathService.cs" />
+    <Compile Include="OrderKey.cs" />
+    <Compile Include="OrderKeyFactory.cs" />
     <Compile Include="OrderLine\FreightLine.cs" />
     <Compile Include="OrderLine\OrderLine.cs" />
     <Compile Include="OrderLine\ProductLine.cs" />
@@ -59,6 +62,7 @@
     <Compile Include="PurchaseOrder\PurchaseOrder.cs" />
     <Compile Include="Requestor.cs" />
     <Compile Include="ReportTemplate.cs" />
+    <Compile Include="OrderKeyRowDto.cs" />
     <Compile Include="StateGroup\FreightStateGroup.cs" />
     <Compile Include="StateGroup\ProductStateGroup.cs" />
     <Compile Include="StateGroup\StateGroup.cs" />

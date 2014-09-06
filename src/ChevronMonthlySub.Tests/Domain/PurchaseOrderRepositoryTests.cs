@@ -14,6 +14,8 @@
 	{
 		private OrderLineExtractor _extractor;
 		private IRequestorService _recipRepo;
+		private IShippingCostService _shipService;
+		private ITemplatePathService _templateService;
 
 		[TestFixtureSetUp]
 		public void FixtureInit()
@@ -28,32 +30,26 @@
 			_extractor = new OrderLineExtractor();
 			_extractor.SourcePath = Path.Combine(projectPath, testFileName);
 			_recipRepo = new HardCodedRequestorService();
+			_shipService = A.Fake<IShippingCostService>();
+			_templateService = A.Fake<ITemplatePathService>();
 		}
 
-		//[Test]
-		//public void TestCreate()
-		//{
-		//	var shipService = A.Fake<IShippingCostService>();
-		//	A.CallTo(() => shipService.BoxFee).Returns(2.50m);
-		//	A.CallTo(() => shipService.PickPackFee).Returns(0.50m);
+		[Test]
+		public void TestCreate()
+		{
+			var repo = new PurchaseOrderService(_extractor, _recipRepo, _shipService, _templateService);
+			repo.FreightLines.Count().Should().Be(130);
+			repo.ProductLines.Count().Should().Be(374);
+		}
 
-		//	var repo = new PurchaseOrderService(_extractor, _recipRepo, shipService);
-		//	repo.FreightLines.Count().Should().Be(126);
-		//	repo.ProductLines.Count().Should().Be(351);
-		//}
+		[Test]
+		public void ReportWithNoFreightLines_GetsOneBox()
+		{
+			var repo = new PurchaseOrderService(_extractor, _recipRepo, _shipService, _templateService);
+			var itemsWithOneBoxFor15142183 = repo.ProductLines
+				.Where(p => p.PoNumber == "15142183" && p.Boxes == 1);
 
-		//[Test]
-		//public void ReportWithNoFreightLines_GetsOneBox()
-		//{
-		//	var shipService = A.Fake<IShippingCostService>();
-		//	A.CallTo(() => shipService.BoxFee).Returns(2.50m);
-		//	A.CallTo(() => shipService.PickPackFee).Returns(0.50m);
-
-		//	var repo = new PurchaseOrderService(_extractor, _recipRepo, shipService);
-		//	var itemsWithOneBoxFor15142183 = repo.ProductLines
-		//		.Where(p => p.PoNumber == "15142183" && p.Boxes == 1);
-
-		//	itemsWithOneBoxFor15142183.Count().Should().Be(1);
-		//}
+			itemsWithOneBoxFor15142183.Count().Should().Be(1);
+		}
 	}
 }

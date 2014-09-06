@@ -13,6 +13,7 @@
 		private readonly IShippingCostService _shippingCostService;
 		private readonly IExtractor<FlexCelOrderLineDto> _extractor;
 		private readonly ITemplatePathService _templatePathService;
+		private readonly Requestor _unknownRequestor = new Requestor(0, "UK", "Unknown Requestor");
 		private string _sourcePath;
 
 		public PurchaseOrderService(
@@ -98,7 +99,7 @@
 						PoNumber = orders.Key.PoNumber,
 						TaxType = orders.Key.TaxGroup,
 						InvoiceNumber = invoiceId,
-						Requestor = _requestorService.Get("KH"),
+						Requestor = _unknownRequestor,
 						Description = "Initial Description to be filled in later",
 						States =
 							from order in orders
@@ -125,7 +126,7 @@
 						PoNumber = orders.Key.PoNumber,
 						TaxType = orders.Key.TaxGroup,
 						InvoiceNumber = invoiceId,
-						Requestor = _requestorService.Get("KH"),
+						Requestor = _unknownRequestor,
 						Description = "Initial Description to be filled in later",
 						States =
 							from order in orders

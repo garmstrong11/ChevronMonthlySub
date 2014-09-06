@@ -48,17 +48,17 @@
 		[Test]
 		public void TestCreate()
 		{
-			_repo.FreightLines.Count().Should().Be(126);
-			_repo.ProductLines.Count().Should().Be(351);
+			_repo.FreightLines.Count().Should().Be(130);
+			_repo.ProductLines.Count().Should().Be(374);
 		}
 
-		//[Test]
-		//public void ToString_ReturnsExpected()
-		//{
-		//	var firstLine = _freightPurchaseOrders.First();
-		//	var result = firstLine.ToString();
-		//	result.Should().Be("462988 15145822 NET ML FRT.xlsx");
-		//}
+		[Test]
+		public void ToString_ReturnsExpected()
+		{
+			var firstLine = _freightPurchaseOrders.First();
+			var result = firstLine.ToString();
+			result.Should().Be("462988 15145823 ML NET FRT.xlsx");
+		}
 
 		[Test]
 		public void CanRunFreightReport()

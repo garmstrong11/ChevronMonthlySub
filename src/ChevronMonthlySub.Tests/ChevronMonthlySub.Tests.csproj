@@ -54,10 +54,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\OrderKeyTests.cs" />
     <Compile Include="Domain\PurchaseOrderTests.cs" />
     <Compile Include="Domain\OrderLineTest.cs" />
     <Compile Include="Domain\PurchaseOrderService.cs" />
     <Compile Include="Domain\PurchaseOrderRepositoryTests.cs" />
+    <Compile Include="Extractor\OrderKeyExtractorTests.cs" />
     <Compile Include="Extractor\OrderLineExtractorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -77,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="DataFiles\Chevron June FG 462988.xlsx" />
+    <None Include="DataFiles\ServiceOrderKey.xlsx" />
     <None Include="DataFiles\TaxGroups.xlsx" />
     <None Include="packages.config" />
   </ItemGroup>

@@ -14,12 +14,16 @@
 	{
 		private string _rowSourcePath;
 		private readonly IPurchaseOrderService _purchaseOrderService;
+		private readonly IRequestorService _requestorService;
 		private string _invoiceId;
 		private readonly List<PurchaseOrder> _poList;
 
-		public ShellViewModel(IPurchaseOrderService purchaseOrderService)
+		public ShellViewModel(
+			IPurchaseOrderService purchaseOrderService, 
+			IRequestorService requestorService)
 		{
 			_purchaseOrderService = purchaseOrderService;
+			_requestorService = requestorService;
 			PurchaseOrders = new PurchaseOrdersViewModel();
 			_poList = new List<PurchaseOrder>(); 
 		}
@@ -48,7 +52,7 @@
 				_poList.AddRange(_purchaseOrderService.GetFreightPurchaseOrders(id));
 				_poList.AddRange(_purchaseOrderService.GetProductPurchaseOrders(id));
 
-				PurchaseOrders.Items.AddRange(_poList.Select(p => new PurchaseOrderRowViewModel(p)));
+				PurchaseOrders.Items.AddRange(_poList.Select(p => new PurchaseOrderRowViewModel(p, _requestorService)));
 
 				NotifyOfPropertyChange();
 			}

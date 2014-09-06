@@ -82,6 +82,7 @@
     <Compile Include="ViewModels\IShell.cs" />
     <Compile Include="ViewModels\PurchaseOrderRowViewModel.cs" />
     <Compile Include="ViewModels\PurchaseOrdersViewModel.cs" />
+    <Compile Include="ViewModels\RequestorListViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\PurchaseOrdersView.xaml.cs">
       <DependentUpon>PurchaseOrdersView.xaml</DependentUpon>

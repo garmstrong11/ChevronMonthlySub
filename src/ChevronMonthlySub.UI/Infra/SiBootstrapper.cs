@@ -33,6 +33,7 @@
 			_container.RegisterSingle<IShippingCostService, ShippingCostService>();
 			_container.RegisterSingle<ITemplatePathService, TemplatePathService>();
 			_container.RegisterSingle<IPurchaseOrderService, PurchaseOrderService>();
+			_container.RegisterSingle<IOrderKeyFactory, OrderKeyFactory>();
 
 			_container.Register<IExtractor<FlexCelOrderLineDto>, OrderLineExtractor>();
 			_container.Register<IChevronReportAdapter, FlexcelChevronReportAdapter>();

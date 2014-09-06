@@ -1,5 +1,6 @@
 ﻿namespace ChevronMonthlySub.UI.ViewModels
 {
+	using System.Collections.Generic;
 	using Caliburn.Micro;
 	using Domain;
 
@@ -9,12 +10,14 @@
 		private TaxType _taxType;
 		private string _poNumber;
 		private string _invoiceNumber;
-		private Requestor _requestor;
+		private Requestor _selectedRequestor;
 		private string _description;
+		private List<Requestor> _requestors;
 
-		public PurchaseOrderRowViewModel(PurchaseOrder purchaseOrder)
+		public PurchaseOrderRowViewModel(PurchaseOrder purchaseOrder, IRequestorService requestorService)
 		{
 			_purchaseOrder = purchaseOrder;
+			_requestors = new List<Requestor>(requestorService.GetAll());
 			Map();
 		}
 
@@ -24,7 +27,7 @@
 			_taxType = _purchaseOrder.TaxType;
 			_poNumber = _purchaseOrder.PoNumber;
 			_invoiceNumber = _purchaseOrder.InvoiceNumber;
-			_requestor = _purchaseOrder.Requestor;
+			_selectedRequestor = _purchaseOrder.Requestor;
 			_description = _purchaseOrder.Description;
 		}
 
@@ -62,15 +65,26 @@
 			}
 		}
 
-		public Requestor Requestor
+		public List<Requestor> Requestors
 		{
-			get { return _requestor; }
+			get { return _requestors; }
 			set
 			{
-				if (Equals(value, _requestor)) return;
-				_requestor = value;
+				if (Equals(value, _requestors)) return;
+				_requestors = value;
+				NotifyOfPropertyChange(() => Requestors);
+			}
+		}
+
+		public Requestor SelectedRequestor
+		{
+			get { return _selectedRequestor; }
+			set
+			{
+				if (Equals(value, _selectedRequestor)) return;
+				_selectedRequestor = value;
 				_purchaseOrder.Requestor = value;
-				NotifyOfPropertyChange(() => Requestor);
+				NotifyOfPropertyChange(() => SelectedRequestor);
 			}
 		}
 

@@ -16,7 +16,8 @@
 				new Requestor(3, "AA", "Arlita Acuesta"),
 				new Requestor(4, "SG", "Stephen Graber"),
 				new Requestor(5, "MM", "Mark Matheny"),
-				new Requestor(6, "ML", "Maybe Later")
+				new Requestor(6, "JG", "Julie Goldstone"),
+				new Requestor(7, "ML", "Maybe Later")
 				};
 		}
 		
