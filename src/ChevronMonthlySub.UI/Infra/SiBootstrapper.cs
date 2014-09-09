@@ -34,6 +34,8 @@
 			_container.RegisterSingle<ITemplatePathService, TemplatePathService>();
 			_container.RegisterSingle<IPurchaseOrderService, PurchaseOrderService>();
 			_container.RegisterSingle<IOrderKeyFactory, OrderKeyFactory>();
+			_container.RegisterSingle<IOrderKeyService, OrderKeyService>();
+			_container.Register<IExtractor<OrderKeyRowDto>, OrderKeyExtractor>();
 
 			_container.Register<IExtractor<FlexCelOrderLineDto>, OrderLineExtractor>();
 			_container.Register<IChevronReportAdapter, FlexcelChevronReportAdapter>();

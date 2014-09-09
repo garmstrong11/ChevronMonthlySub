@@ -29,7 +29,17 @@
 			get { return LineAmountSubtotal + TaxAmountSubtotal; }
 		}
 
-	  public override string ToString()
+		public override void UpdateWithOrderKey(Dictionary<string, OrderKey> orderKeys)
+		{
+			OrderKey key;
+			if (!orderKeys.TryGetValue(PoNumber, out key)) return;
+
+			Description = key.Description;
+			Requestor = key.Requestor;
+			PoNumber = key.FreightId;
+		}
+
+		public override string ToString()
 	  {
 	    return string.Format("{0} {1}", base.ToString(), "FRT.xlsx");
 	  }
@@ -42,7 +52,16 @@
       ReportAdapter.SetValue("TaxTotal", TaxAmountSubtotal);
 	  }
 
-	  public override void RunReports()
+		public override void UpdatePoNumber(string newPo)
+		{
+			PoNumber = newPo;
+			var orderLines = States.SelectMany(p => p.OrderLines);
+			foreach (var orderLine in orderLines) {
+				orderLine.PoNumber = newPo;
+			}
+		}
+
+		public override void RunReports()
 	  {
 		  ReportAdapter.OutputFileNameWithoutPrefix = ToString();
 			ReportAdapter.Run(false);

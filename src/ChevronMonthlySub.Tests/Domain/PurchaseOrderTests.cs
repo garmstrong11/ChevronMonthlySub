@@ -124,5 +124,18 @@
 
 			return state.PickPackCharges;
 		}
+
+		[Test]
+		public void UpdatePoNumber_AltersAllChildOrderLines()
+		{
+			var po15146759 = _freightPurchaseOrders.First(p => p.PoNumber == "15146759");
+
+			po15146759.UpdatePoNumber("9669");
+
+			var orderLines = po15146759.States.SelectMany(p => p.OrderLines);
+
+			orderLines.All(o => o.PoNumber == "9669").Should().BeTrue();
+			po15146759.PoNumber.Should().Be("9669");
+		}
 	}
 }

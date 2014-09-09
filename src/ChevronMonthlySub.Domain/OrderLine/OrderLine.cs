@@ -19,7 +19,7 @@
 	  }
 
 	  public DateTime DateShipped { get; private set; }
-	  public string PoNumber { get; private set; }
+	  public string PoNumber { get; set; }
 	  public int OrderNumber { get; private set; }
 	  public string LineDesc { get; private set; }
 		public string Destination { get; private set; }

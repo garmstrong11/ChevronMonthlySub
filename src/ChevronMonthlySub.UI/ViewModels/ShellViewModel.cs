@@ -15,15 +15,19 @@
 		private string _rowSourcePath;
 		private readonly IPurchaseOrderService _purchaseOrderService;
 		private readonly IRequestorService _requestorService;
+		private readonly Dictionary<string, OrderKey> _orderKeys; 
 		private string _invoiceId;
 		private readonly List<PurchaseOrder> _poList;
 
 		public ShellViewModel(
 			IPurchaseOrderService purchaseOrderService, 
-			IRequestorService requestorService)
+			IRequestorService requestorService,
+			IOrderKeyService orderKeyService)
 		{
 			_purchaseOrderService = purchaseOrderService;
 			_requestorService = requestorService;
+			_orderKeys = orderKeyService.AcquireOrderKeys();
+
 			PurchaseOrders = new PurchaseOrdersViewModel();
 			_poList = new List<PurchaseOrder>(); 
 		}
@@ -33,27 +37,16 @@
 			PurchaseOrders.Items.Clear();
 			_poList.Clear();
 			InvoiceId = string.Empty;
+			RowSourcePath = string.Empty;
 		}
 
 		public string RowSourcePath
 		{
 			get { return _rowSourcePath; }
 			set
-			{
-				Reset();
-				string id;
+			{	
 				if (value == _rowSourcePath) return;
-
-				if (!TryExtractInvoiceIdFromFilePath(value, out id)) return;
-
-				InvoiceId = id;
 				_rowSourcePath = value;
-				_purchaseOrderService.SourcePath = _rowSourcePath;
-				_poList.AddRange(_purchaseOrderService.GetFreightPurchaseOrders(id));
-				_poList.AddRange(_purchaseOrderService.GetProductPurchaseOrders(id));
-
-				PurchaseOrders.Items.AddRange(_poList.Select(p => new PurchaseOrderRowViewModel(p, _requestorService)));
-
 				NotifyOfPropertyChange();
 			}
 		}
@@ -88,23 +81,29 @@
 		public void HandleFileDrop(ActionExecutionContext ctx)
 		{
 			var args = (DragEventArgs)ctx.EventArgs;
-			var boxName = ctx.Source.Name;
 			var folderPaths = (string[])args.Data.GetData(DataFormats.FileDrop);
 			var info = new FileInfo(folderPaths[0]);
 
-			if (info.IsDirectory()) return;
+			Reset();
+
+			string id;
+			if (!TryExtractInvoiceIdFromFilePath(info.FullName, out id)) return;
 
 			args.Effects = DragDropEffects.Link;
 
-			if (boxName == "RowSourcePath")
-			{
-				RowSourcePath = folderPaths[0];
-			}
-			//else
-			//{
-			//	SourcePath = folderPaths[0];
-			//}
+			RowSourcePath = info.FullName;
 			args.Handled = true;
+
+			_purchaseOrderService.SourcePath = RowSourcePath;
+			_poList.AddRange(_purchaseOrderService.GetFreightPurchaseOrders(id));
+			_poList.AddRange(_purchaseOrderService.GetProductPurchaseOrders(id));
+
+			foreach (var purchaseOrder in _poList)
+			{
+				purchaseOrder.UpdateWithOrderKey(_orderKeys);
+			}
+
+			PurchaseOrders.Items.AddRange(_poList.Select(p => new PurchaseOrderRowViewModel(p, _requestorService)));
 		}
 
 		public void RunReports()
@@ -122,11 +121,9 @@
 			if (!File.Exists(filePath)) return false;
 
 			var fileName = Path.GetFileNameWithoutExtension(filePath);
-
 			if (fileName == null) return false;
 
 			var match = Regex.Match(fileName, @"\d{6,}");
-
 			if (!match.Success) return false;
 
 			invoiceId = match.Value;

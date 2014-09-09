@@ -35,6 +35,7 @@
         </DataGridComboBoxColumn.EditingElementStyle>
       </DataGridComboBoxColumn>
       <DataGridTextColumn Header="Description"
+                          Width="*"
                           Binding="{Binding Description}" />
     </DataGrid.Columns>
   </DataGrid>

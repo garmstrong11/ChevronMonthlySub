@@ -9,22 +9,18 @@
 	public class PurchaseOrderService : IPurchaseOrderService
 	{
 		private List<OrderLine> _orderLines;
-		private readonly IRequestorService _requestorService;
 		private readonly IShippingCostService _shippingCostService;
 		private readonly IExtractor<FlexCelOrderLineDto> _extractor;
 		private readonly ITemplatePathService _templatePathService;
-		private readonly Requestor _unknownRequestor = new Requestor(0, "UK", "Unknown Requestor");
 		private string _sourcePath;
 
 		public PurchaseOrderService(
       IExtractor<FlexCelOrderLineDto> extractor, 
-      IRequestorService requestorService, 
       IShippingCostService shippingCostService,
 			ITemplatePathService templatePathService
 			)
 		{
 			_extractor = extractor;
-			_requestorService = requestorService;
 		  _shippingCostService = shippingCostService;
 			_templatePathService = templatePathService;
 		}
@@ -99,8 +95,7 @@
 						PoNumber = orders.Key.PoNumber,
 						TaxType = orders.Key.TaxGroup,
 						InvoiceNumber = invoiceId,
-						Requestor = _unknownRequestor,
-						Description = "Initial Description to be filled in later",
+						Requestor = Requestor.UnknownRequestor,
 						States =
 							from order in orders
 							group order by order.State
@@ -126,8 +121,7 @@
 						PoNumber = orders.Key.PoNumber,
 						TaxType = orders.Key.TaxGroup,
 						InvoiceNumber = invoiceId,
-						Requestor = _unknownRequestor,
-						Description = "Initial Description to be filled in later",
+						Requestor = Requestor.UnknownRequestor,
 						States =
 							from order in orders
 							group order by order.State

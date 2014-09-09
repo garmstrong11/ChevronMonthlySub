@@ -23,5 +23,8 @@
     <Setting Name="TemplateDir" Type="System.String" Scope="User">
       <Value Profile="(Default)">\\NLS_SERVER\Global_User\garmstrong\Chevron</Value>
     </Setting>
+    <Setting Name="OrderKeyPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">\\NLS_SERVER\Global_User\garmstrong\Chevron\ServiceOrderKey.xlsx</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

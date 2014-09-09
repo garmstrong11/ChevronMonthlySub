@@ -2,6 +2,8 @@
 {
 	public class Requestor
 	{
+		private static Requestor _unknownRequestor;
+		
 		public int Id { get; set; }
 		public string Initials { get; set; }
 		public string Name { get; set; }
@@ -13,11 +15,21 @@
 				&& Id == other.Id;
 		}
 
+		static Requestor() 
+		{
+			_unknownRequestor = new Requestor(0, "UK", "Unknown Requestor");
+		}
+
 		public Requestor(int id, string initials, string name)
 		{
 			Name = name;
 			Initials = initials;
 			Id = id;
+		}
+
+		public static Requestor UnknownRequestor
+		{
+			get { return _unknownRequestor; }
 		}
 
 		public override bool Equals(object obj)

@@ -36,6 +36,11 @@
 				.Path;
 		}
 
+		public string OrderKeyPath
+		{
+			get { return Properties.Settings.Default.OrderKeyPath; }
+		}
+
 		public string OutputDirectory { get; set; }
 	}
 }

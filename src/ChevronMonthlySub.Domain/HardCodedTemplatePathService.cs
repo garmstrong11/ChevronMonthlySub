@@ -35,6 +35,11 @@
 				.Path;
 		}
 
+		public string OrderKeyPath
+		{
+			get { return @"\\NLS_SERVER\Global_User\garmstrong\Chevron\ServiceOrderKey.xlsx"; }
+		}
+
 		public string OutputDirectory { get; set; }
   }
 }

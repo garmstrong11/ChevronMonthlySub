@@ -106,5 +106,17 @@ namespace ChevronMonthlySub.UI.Properties {
                 this["TemplateDir"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("\\\\NLS_SERVER\\Global_User\\garmstrong\\Chevron\\ServiceOrderKey.xlsx")]
+        public string OrderKeyPath {
+            get {
+                return ((string)(this["OrderKeyPath"]));
+            }
+            set {
+                this["OrderKeyPath"] = value;
+            }
+        }
     }
 }

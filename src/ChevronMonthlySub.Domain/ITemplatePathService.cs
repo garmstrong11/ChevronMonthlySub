@@ -9,7 +9,7 @@
 		//string SummaryFreightTemplatePath { get; }
 		//string ProductTemplatePath { get; }
 		//string SummaryProductTemplatePath { get; }
-
+		string OrderKeyPath { get; }
     string OutputDirectory { get; set; }
 	}
 }
