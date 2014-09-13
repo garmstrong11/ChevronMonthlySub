@@ -32,8 +32,8 @@
 		[Test]
 		public void SourcePath_ReturnsCorrectPath()
 		{
-			_extractor.SourcePath.Should().Be(
-				@"F:\CODE\ChevronMonthlySub\src\ChevronMonthlySub.Tests\DataFiles\Chevron June FG 462988.xlsx");
+			_extractor.SourcePath.Should().Contain(
+				@"\ChevronMonthlySub\src\ChevronMonthlySub.Tests\DataFiles\Chevron June FG 462988.xlsx");
 		}
 
 		[Test]
