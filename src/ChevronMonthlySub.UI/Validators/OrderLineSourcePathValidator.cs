@@ -14,8 +14,6 @@
 
       RuleSet("File", () =>
       {
-        RuleFor(x => x.FullPath).NotEmpty();
-
         RuleFor(x => x.FullPath)
           .Must(s => _fileOps.Exists(s))
           .WithMessage("File does not exist");

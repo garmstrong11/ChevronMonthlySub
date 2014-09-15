@@ -42,6 +42,9 @@
     <Reference Include="FluentAssertions.Core">
       <HintPath>..\..\packages\FluentAssertions.3.1.229\lib\net45\FluentAssertions.Core.dll</HintPath>
     </Reference>
+    <Reference Include="FluentValidation">
+      <HintPath>..\..\packages\FluentValidation.5.4.0.0\lib\Net40\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -79,6 +82,10 @@
     <ProjectReference Include="..\ChevronMonthlySub.Reporter\ChevronMonthlySub.Reporter.csproj">
       <Project>{f87efe7a-2996-46c1-a4b2-799ea61e0a7b}</Project>
       <Name>ChevronMonthlySub.Reporter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ChevronMonthlySub.UI\ChevronMonthlySub.UI.csproj">
+      <Project>{42e6e6b1-8ab0-4fac-b382-8aa2af9c0e5c}</Project>
+      <Name>ChevronMonthlySub.UI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
