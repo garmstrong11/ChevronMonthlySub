@@ -36,4 +36,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 // Make internals available to unit tests:
-[assembly: InternalsVisibleTo("ChevronMonthlySub.Tests")]
+//[assembly: InternalsVisibleTo("ChevronMonthlySub.Tests")]

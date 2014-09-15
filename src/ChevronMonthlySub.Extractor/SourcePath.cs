@@ -1,13 +1,14 @@
 ﻿namespace ChevronMonthlySub.Extractor
 {
   using System.Linq;
+  using Domain;
 
-  public abstract class SourcePathBase<T, TS> : ISourcePath where T : ExtractorBase<TS>
+	public class SourcePath<T> : ISourcePath
   {
     private readonly IFileOps _fileOps;
-    private readonly T _extractor;
+    private readonly IExtractor<T> _extractor;
 
-    protected SourcePathBase(IFileOps fileOps, T extractor)
+    internal SourcePath(IFileOps fileOps, IExtractor<T> extractor)
     {
       _fileOps = fileOps;
       _extractor = extractor;
@@ -27,7 +28,7 @@
       }
     }
 
-    public string FullPath { get; internal set; }
+    public string FullPath { get; set; }
 
     public string Extension
     {

@@ -1,8 +1,10 @@
-﻿namespace ChevronMonthlySub.Extractor
+﻿namespace ChevronMonthlySub.UI.Validators
 {
-  using FluentValidation;
+	using Domain;
+	using Extractor;
+	using FluentValidation;
 
-  public class OrderLineSourcePathValidator : AbstractValidator<OrderLineSourcePath>
+	public class OrderLineSourcePathValidator : AbstractValidator<SourcePath<FlexCelOrderLineDto>>
   {
     private readonly IFileOps _fileOps;
 

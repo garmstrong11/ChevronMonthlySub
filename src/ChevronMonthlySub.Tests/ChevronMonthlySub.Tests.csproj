@@ -62,7 +62,8 @@
     <Compile Include="Extractor\FileOpsTests.cs" />
     <Compile Include="Extractor\OrderKeyExtractorTests.cs" />
     <Compile Include="Extractor\OrderLineExtractorTests.cs" />
-    <Compile Include="Extractor\OrderLineSourcePathTests.cs" />
+    <Compile Include="Extractor\SourcePathFactoryTests.cs" />
+    <Compile Include="Extractor\SourcePathTests.cs" />
     <Compile Include="Extractor\OrderLineSourcePathValidatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -2,11 +2,11 @@
 {
 	using System;
 	using System.Collections.Generic;
-	using System.IO;
 	using System.Linq;
+	using Domain;
 	using FlexCel.XlsAdapter;
 
-	public abstract class ExtractorBase<T>
+	public abstract class ExtractorBase<T> : IExtractor<T>
 	{
 		protected XlsFile Xls;
 		private string _sourcePath;
@@ -17,11 +17,7 @@
 			set
 			{
 				_sourcePath = value;
-				if (!File.Exists(_sourcePath))
-				{
-					throw new FileNotFoundException("Excel data file not found");
-				}
-				Xls.Open(_sourcePath);
+				Xls = new XlsFile(_sourcePath);
 			}
 		}
 

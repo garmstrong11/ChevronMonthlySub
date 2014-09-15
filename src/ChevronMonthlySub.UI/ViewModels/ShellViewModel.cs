@@ -8,12 +8,17 @@
 	using System.Windows;
 	using Caliburn.Micro;
 	using Domain;
+	using Extractor;
+	using FluentValidation;
 	using Infra;
 
 	public class ShellViewModel : Screen, IShell
 	{
 		private string _rowSourcePath;
 		private readonly IPurchaseOrderService _purchaseOrderService;
+		private readonly ISourcePathFactory<FlexCelOrderLineDto> _sourcePathFactory;
+		private readonly IValidator<SourcePath<FlexCelOrderLineDto>> _sourcePathValidator;
+		private readonly IWindowManager _windowManager;
 		private readonly IRequestorService _requestorService;
 		private readonly Dictionary<string, OrderKey> _orderKeys; 
 		private string _invoiceId;
@@ -22,11 +27,17 @@
 		public ShellViewModel(
 			IPurchaseOrderService purchaseOrderService, 
 			IRequestorService requestorService,
-			IOrderKeyService orderKeyService)
+			IOrderKeyService orderKeyService,
+			ISourcePathFactory<FlexCelOrderLineDto> sourcePathFactory,
+			IValidator<SourcePath<FlexCelOrderLineDto>> sourcePathValidator,
+			IWindowManager windowManager)
 		{
 			_purchaseOrderService = purchaseOrderService;
 			_requestorService = requestorService;
 			_orderKeys = orderKeyService.AcquireOrderKeys();
+			_sourcePathFactory = sourcePathFactory;
+			_sourcePathValidator = sourcePathValidator;
+			_windowManager = windowManager;
 
 			PurchaseOrders = new PurchaseOrdersViewModel();
 			_poList = new List<PurchaseOrder>(); 
@@ -85,6 +96,17 @@
 			var info = new FileInfo(folderPaths[0]);
 
 			Reset();
+
+			var sourcePath = _sourcePathFactory.Create(info.FullName);
+			var result = _sourcePathValidator.Validate(sourcePath, ruleSet: "Name,Structure");
+
+			if (!result.IsValid) {
+				var errMessage = string.Join("\n", result.Errors.Select(e => e.ErrorMessage));
+				var errDialog = new ErrorWindowViewModel {Errors = errMessage};
+				_windowManager.ShowDialog(errDialog);
+
+				return;
+			}
 
 			string id;
 			if (!TryExtractInvoiceIdFromFilePath(info.FullName, out id)) return;

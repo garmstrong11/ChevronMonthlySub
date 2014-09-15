@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="ChevronMonthlySub.UI.Views.ErrorWindowView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="400"
+             Background="White">
+    <DockPanel>
+    <Border DockPanel.Dock="Bottom"
+            Height="45"
+            Background="LightGray">
+      <StackPanel Orientation="Horizontal"
+                  HorizontalAlignment="Right"
+                  Height="Auto">
+        <Button x:Name="Ok" 
+                Content="OK"
+                Margin="9"
+                Padding="25 0"/>
+      </StackPanel>
+    </Border>
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="90"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      <Image Source="../Images/Error_48.png"
+             Margin="9"/>
+      <TextBlock Grid.Column="1"
+                 x:Name="Errors"
+                 Margin="9"/>
+     </Grid>
+  </DockPanel>
+</UserControl>
