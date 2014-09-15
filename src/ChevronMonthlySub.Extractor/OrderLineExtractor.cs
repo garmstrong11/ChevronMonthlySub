@@ -3,7 +3,7 @@
 	using System.Collections.Generic;
 	using Domain;
 
-	public class OrderLineExtractor : ExtractorBase<FlexCelOrderLineDto>, IExtractor<FlexCelOrderLineDto>
+	public class OrderLineExtractor : ExtractorBase<FlexCelOrderLineDto>
 	{
 		public override IList<FlexCelOrderLineDto> Extract()
 		{
@@ -30,6 +30,27 @@
 
 			return result;
 		}
+
+    public override IDictionary<string, int> ColumnDictionary
+    {
+      get
+      {
+        return new Dictionary<string, int>
+					{
+					{"Date-Shipped", 1},
+					{"PO-Number", 2},
+					{"Order-Number", 3},
+					{"Inventory-Item-ID", 4},
+					{"Line-Desc", 5},
+					{"Line-Amount", 6},
+					{"Tax-Amount", 7},
+					{"Qty-Shipped", 8},
+					{"Line-Distribution", 9},
+					{"Freight Line Count", 10},
+					{"Order Line Count", 11}
+					};
+      }
+    }
 
 		private string ExtractLineDesc(int rowIndex, int columnIndex)
 		{

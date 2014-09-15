@@ -6,5 +6,7 @@
 	{
 		IList<T> Extract();
 		string SourcePath { get; set; }
+    IList<string> ExtractHeaderNames();
+    IDictionary<string, int> ColumnDictionary { get; }
 	}
 }

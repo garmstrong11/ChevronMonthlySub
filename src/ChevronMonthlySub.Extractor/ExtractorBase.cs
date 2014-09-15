@@ -3,17 +3,13 @@
 	using System;
 	using System.Collections.Generic;
 	using System.IO;
+	using System.Linq;
 	using FlexCel.XlsAdapter;
 
 	public abstract class ExtractorBase<T>
 	{
-		protected readonly XlsFile Xls;
+		protected XlsFile Xls;
 		private string _sourcePath;
-
-		protected ExtractorBase()
-		{
-			Xls = new XlsFile();
-		}
 
 		public string SourcePath
 		{
@@ -28,6 +24,19 @@
 				Xls.Open(_sourcePath);
 			}
 		}
+
+    public virtual IDictionary<string, int> ColumnDictionary
+    {
+      get { return new Dictionary<string, int>(); }
+    }
+
+    public virtual IList<string> ExtractHeaderNames()
+    {
+      if (string.IsNullOrWhiteSpace(SourcePath)) return null;
+      Xls = new XlsFile(SourcePath);
+
+      return ColumnDictionary.Values.Select(v => ExtractString(1, v)).ToList();
+    }
 
 		public virtual IList<T> Extract()
 		{

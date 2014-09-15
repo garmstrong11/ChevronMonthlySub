@@ -59,8 +59,11 @@
     <Compile Include="Domain\OrderLineTest.cs" />
     <Compile Include="Domain\PurchaseOrderService.cs" />
     <Compile Include="Domain\PurchaseOrderRepositoryTests.cs" />
+    <Compile Include="Extractor\FileOpsTests.cs" />
     <Compile Include="Extractor\OrderKeyExtractorTests.cs" />
     <Compile Include="Extractor\OrderLineExtractorTests.cs" />
+    <Compile Include="Extractor\OrderLineSourcePathTests.cs" />
+    <Compile Include="Extractor\OrderLineSourcePathValidatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
