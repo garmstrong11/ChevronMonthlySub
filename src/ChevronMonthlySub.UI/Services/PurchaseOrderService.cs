@@ -8,7 +8,6 @@
 
 	public class PurchaseOrderService : IPurchaseOrderService
 	{
-		private List<OrderLine> _orderLines;
 		private readonly IShippingCostService _shippingCostService;
 		private readonly IExtractor<FlexCelOrderLineDto> _extractor;
 		private readonly ITemplatePathService _templatePathService;
@@ -25,6 +24,8 @@
 			_templatePathService = templatePathService;
 		}
 
+		// Setting the SourcePath triggers extraction and population of object model.
+		// This allows us to validate the SourcePath separately, then build the model.
 		public string SourcePath
 		{
 			get { return _sourcePath; }
@@ -32,22 +33,24 @@
 			{
 				if (value.Equals(_sourcePath)) return;
 				_sourcePath = value;
-				_extractor.SourcePath = _sourcePath;
-				_templatePathService.OutputDirectory = Path.GetDirectoryName(_sourcePath);
-				_orderLines = _extractor.Extract().Select(CreateOrderLine).ToList();
-				AssignBoxCountsToProductLines();
+				ExtractAndPopulateModel(value);
 			}
 		}
 
-		public IEnumerable<FreightLine> FreightLines
+		private void ExtractAndPopulateModel(string sourcePath)
 		{
-			get { return _orderLines.OfType<FreightLine>(); }
+			_extractor.SourcePath = sourcePath;
+			_templatePathService.OutputDirectory = Path.GetDirectoryName(sourcePath);
+			var orderLines = _extractor.Extract().Select(CreateOrderLine).ToList();
+			FreightLines = orderLines.OfType<FreightLine>().ToList();
+			ProductLines = orderLines.OfType<ProductLine>().ToList();
+
+			AssignBoxCountsToProductLines();
 		}
 
-		public IEnumerable<ProductLine> ProductLines
-		{
-			get { return _orderLines.OfType<ProductLine>(); }
-		}
+		public IEnumerable<FreightLine> FreightLines { get; private set; }
+
+		public IEnumerable<ProductLine> ProductLines { get; private set; }
 
 		private static OrderLine CreateOrderLine(FlexCelOrderLineDto dto)
 		{
@@ -110,19 +113,45 @@
 			return query.ToList();
 		}
 
+		public IEnumerable<ProductPurchaseOrder> GetProductPurchaseOrders(string invoiceId)
+		{
+			var query =
+				from line in ProductLines
+				group line by new { line.PoNumber, TaxGroup = line.TaxType }
+				into orders
+				select new ProductPurchaseOrder(new FlexcelChevronReportAdapter(_templatePathService))
+					{
+					PoNumber = orders.Key.PoNumber,
+					TaxType = orders.Key.TaxGroup,
+					InvoiceNumber = invoiceId,
+					Requestor = Requestor.UnknownRequestor,
+					States =
+					from order in orders
+					group order by order.State
+					into states
+					select new ProductStateGroup(_shippingCostService)
+						{
+						StateName = states.Key,
+						OrderLines = states.ToList()
+						}
+					};
+
+			return query.ToList();
+		}
+
 		public int SalesLines
 		{
-			get { return _orderLines.OfType<ProductLine>().Count(); }
+			get { return ProductLines.Count(); }
 		}
 
 		public decimal FreightFee
 		{
-			get { return _orderLines.OfType<FreightLine>().Sum(p => p.LineAmount + p.TaxAmount); }
+			get { return FreightLines.Sum(p => p.LineAmount + p.TaxAmount); }
 		}
 
 		public int PickPackCount
 		{
-			get { return _orderLines.OfType<ProductLine>().Sum(s => s.ShipQty); }
+			get { return ProductLines.Sum(s => s.ShipQty); }
 		}
 
 		public decimal PickPackFee
@@ -132,7 +161,7 @@
 
 		public int BoxCount
 		{
-			get { return _orderLines.OfType<FreightLine>().Count(); }
+			get { return FreightLines.Count(); }
 		}
 
 		public decimal BoxFee
@@ -143,32 +172,6 @@
 		public decimal TotalInvoice
 		{
 			get { return FreightFee + BoxFee + PickPackFee; }
-		}
-
-		public IEnumerable<ProductPurchaseOrder> GetProductPurchaseOrders(string invoiceId)
-		{
-			var query =
-				from line in ProductLines
-				group line by new { line.PoNumber, TaxGroup = line.TaxType }
-					into orders
-					select new ProductPurchaseOrder(new FlexcelChevronReportAdapter(_templatePathService))
-					{
-						PoNumber = orders.Key.PoNumber,
-						TaxType = orders.Key.TaxGroup,
-						InvoiceNumber = invoiceId,
-						Requestor = Requestor.UnknownRequestor,
-						States =
-							from order in orders
-							group order by order.State
-								into states
-								select new ProductStateGroup(_shippingCostService)
-								{
-									StateName = states.Key,
-									OrderLines = states.ToList()
-								}
-					};
-
-			return query.ToList();
 		}
 	}
 }
