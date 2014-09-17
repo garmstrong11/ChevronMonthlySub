@@ -17,7 +17,7 @@
 		private OrderLineExtractor _extractor;
 		private IShippingCostService _shipService;
 		private ITemplatePathService _templatePathService;
-		private IPurchaseOrderService _purchaseOrderService;
+		private IInvoiceService _invoiceService;
 		private IEnumerable<FreightPurchaseOrder> _freightPurchaseOrders;
 		private IEnumerable<ProductPurchaseOrder> _productPurchaseOrders;
 			
@@ -39,17 +39,17 @@
 			A.CallTo(() => _shipService.BoxFee).Returns(2.50m);
 			A.CallTo(() => _shipService.PickPackFee).Returns(0.50m);
 
-			_purchaseOrderService = new PurchaseOrderService(_extractor, _shipService, _templatePathService);
-			_purchaseOrderService.SourcePath = Path.Combine(projectPath, testFileName);
-			_freightPurchaseOrders = _purchaseOrderService.GetFreightPurchaseOrders("462988");
-			_productPurchaseOrders = _purchaseOrderService.GetProductPurchaseOrders("462988");
+			_invoiceService = new InvoiceService(_extractor, _shipService, _templatePathService);
+			_invoiceService.SourcePath = Path.Combine(projectPath, testFileName);
+			_freightPurchaseOrders = _invoiceService.GetFreightPurchaseOrders("462988");
+			_productPurchaseOrders = _invoiceService.GetProductPurchaseOrders("462988");
 		}
 
 		[Test]
 		public void TestCreate()
 		{
-			_purchaseOrderService.FreightLines.Count().Should().Be(130);
-			_purchaseOrderService.ProductLines.Count().Should().Be(374);
+			_invoiceService.FreightLines.Count().Should().Be(130);
+			_invoiceService.ProductLines.Count().Should().Be(374);
 		}
 
 		[Test]

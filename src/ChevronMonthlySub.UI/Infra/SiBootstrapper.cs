@@ -34,7 +34,7 @@
 			_container.RegisterSingle<IRequestorService, RequestorService>();
 			_container.RegisterSingle<IShippingCostService, ShippingCostService>();
 			_container.RegisterSingle<ITemplatePathService, TemplatePathService>();
-			_container.RegisterSingle<IPurchaseOrderService, PurchaseOrderService>();
+			_container.RegisterSingle<IInvoiceService, InvoiceService>();
 			_container.RegisterSingle<IOrderKeyFactory, OrderKeyFactory>();
 			_container.RegisterSingle<IOrderKeyService, OrderKeyService>();
 			_container.RegisterSingle<ISourcePathFactory<FlexCelOrderLineDto>, SourcePathFactory<FlexCelOrderLineDto>>();

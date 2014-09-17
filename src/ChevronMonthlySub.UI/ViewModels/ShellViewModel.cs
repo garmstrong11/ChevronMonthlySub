@@ -15,7 +15,7 @@
 	public class ShellViewModel : Screen, IShell
 	{
 		private string _rowSourcePath;
-		private readonly IPurchaseOrderService _purchaseOrderService;
+		private readonly IInvoiceService _invoiceService;
 		private readonly ISourcePathFactory<FlexCelOrderLineDto> _sourcePathFactory;
 		private readonly IValidator<SourcePath<FlexCelOrderLineDto>> _sourcePathValidator;
 		private readonly IWindowManager _windowManager;
@@ -25,14 +25,14 @@
 		private readonly List<PurchaseOrder> _poList;
 
 		public ShellViewModel(
-			IPurchaseOrderService purchaseOrderService, 
+			IInvoiceService invoiceService, 
 			IRequestorService requestorService,
 			IOrderKeyService orderKeyService,
 			ISourcePathFactory<FlexCelOrderLineDto> sourcePathFactory,
 			IValidator<SourcePath<FlexCelOrderLineDto>> sourcePathValidator,
 			IWindowManager windowManager)
 		{
-			_purchaseOrderService = purchaseOrderService;
+			_invoiceService = invoiceService;
 			_requestorService = requestorService;
 			_orderKeys = orderKeyService.AcquireOrderKeys();
 			_sourcePathFactory = sourcePathFactory;
@@ -116,9 +116,9 @@
 			RowSourcePath = info.FullName;
 			args.Handled = true;
 
-			_purchaseOrderService.SourcePath = RowSourcePath;
-			_poList.AddRange(_purchaseOrderService.GetFreightPurchaseOrders(id));
-			_poList.AddRange(_purchaseOrderService.GetProductPurchaseOrders(id));
+			_invoiceService.SourcePath = RowSourcePath;
+			_poList.AddRange(_invoiceService.GetFreightPurchaseOrders(id));
+			_poList.AddRange(_invoiceService.GetProductPurchaseOrders(id));
 
 			foreach (var purchaseOrder in _poList)
 			{

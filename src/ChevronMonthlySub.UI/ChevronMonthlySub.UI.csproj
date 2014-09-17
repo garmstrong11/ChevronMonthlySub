@@ -80,7 +80,7 @@
     </Compile>
     <Compile Include="Infra\Extensions.cs" />
     <Compile Include="Services\OrderKeyService.cs" />
-    <Compile Include="Services\PurchaseOrderService.cs" />
+    <Compile Include="Services\InvoiceService.cs" />
     <Compile Include="Services\RequestorService.cs" />
     <Compile Include="Services\ShippingCostService.cs" />
     <Compile Include="Services\TemplatePathService.cs" />

@@ -2,7 +2,7 @@
 {
 	using System.Collections.Generic;
 
-	public interface IPurchaseOrderService
+	public interface IInvoiceService
 	{
 		string SourcePath { get; set; }
 		IEnumerable<FreightLine> FreightLines { get; }

@@ -47,7 +47,7 @@
     <Compile Include="InvalidStateException.cs" />
     <Compile Include="IOrderKeyFactory.cs" />
     <Compile Include="IOrderKeyService.cs" />
-    <Compile Include="IPurchaseOrderService.cs" />
+    <Compile Include="IInvoiceService.cs" />
     <Compile Include="IRequestorService.cs" />
     <Compile Include="IShippingCostService.cs" />
     <Compile Include="ITemplatePathService.cs" />

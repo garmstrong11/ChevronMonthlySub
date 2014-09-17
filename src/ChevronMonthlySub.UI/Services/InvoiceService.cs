@@ -6,14 +6,14 @@
 	using Domain;
 	using Reporter;
 
-	public class PurchaseOrderService : IPurchaseOrderService
+	public class InvoiceService : IInvoiceService
 	{
 		private readonly IShippingCostService _shippingCostService;
 		private readonly IExtractor<FlexCelOrderLineDto> _extractor;
 		private readonly ITemplatePathService _templatePathService;
 		private string _sourcePath;
 
-		public PurchaseOrderService(
+		public InvoiceService(
       IExtractor<FlexCelOrderLineDto> extractor, 
       IShippingCostService shippingCostService,
 			ITemplatePathService templatePathService
