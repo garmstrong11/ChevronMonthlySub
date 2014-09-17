@@ -9,15 +9,15 @@
 	using FakeItEasy;
 	using FluentAssertions;
 	using NUnit.Framework;
+	using UI.Services;
 
 	[TestFixture]
 	public class PurchaseOrderTests
 	{
 		private OrderLineExtractor _extractor;
-		private IRequestorService _recipRepo;
 		private IShippingCostService _shipService;
 		private ITemplatePathService _templatePathService;
-		private PurchaseOrderService _repo;
+		private IPurchaseOrderService _purchaseOrderService;
 		private IEnumerable<FreightPurchaseOrder> _freightPurchaseOrders;
 		private IEnumerable<ProductPurchaseOrder> _productPurchaseOrders;
 			
@@ -32,24 +32,24 @@
 			var projectPath = directoryName.Replace("file:\\", "").Replace("\\bin\\Debug", "");
 
 			_extractor = new OrderLineExtractor();
-			_extractor.SourcePath = Path.Combine(projectPath, testFileName);
-			_recipRepo = new HardCodedRequestorService();
+			//_extractor.SourcePath = Path.Combine(projectPath, testFileName);
 			_shipService = A.Fake<IShippingCostService>();
 			_templatePathService = new HardCodedTemplatePathService();
 
 			A.CallTo(() => _shipService.BoxFee).Returns(2.50m);
 			A.CallTo(() => _shipService.PickPackFee).Returns(0.50m);
 
-			_repo = new PurchaseOrderService(_extractor, _recipRepo, _shipService, _templatePathService);
-			_freightPurchaseOrders = _repo.GetFreightPurchaseOrders("462988");
-			_productPurchaseOrders = _repo.GetProductPurchaseOrders("462988");
+			_purchaseOrderService = new PurchaseOrderService(_extractor, _shipService, _templatePathService);
+			_purchaseOrderService.SourcePath = Path.Combine(projectPath, testFileName);
+			_freightPurchaseOrders = _purchaseOrderService.GetFreightPurchaseOrders("462988");
+			_productPurchaseOrders = _purchaseOrderService.GetProductPurchaseOrders("462988");
 		}
 
 		[Test]
 		public void TestCreate()
 		{
-			_repo.FreightLines.Count().Should().Be(130);
-			_repo.ProductLines.Count().Should().Be(374);
+			_purchaseOrderService.FreightLines.Count().Should().Be(130);
+			_purchaseOrderService.ProductLines.Count().Should().Be(374);
 		}
 
 		[Test]
@@ -57,7 +57,7 @@
 		{
 			var firstLine = _freightPurchaseOrders.First();
 			var result = firstLine.ToString();
-			result.Should().Be("462988 15145823 ML NET FRT.xlsx");
+			result.Should().Be("462988 15145823 UK NET FRT.xlsx");
 		}
 
 		[Test]
@@ -76,6 +76,7 @@
 			firstPo.RunReports();
 		}
 
+		[Ignore]
 		[Test]
 		public void RunsAllReports()
 		{

@@ -110,6 +110,41 @@
 			return query.ToList();
 		}
 
+		public int SalesLines
+		{
+			get { return _orderLines.OfType<ProductLine>().Count(); }
+		}
+
+		public decimal FreightFee
+		{
+			get { return _orderLines.OfType<FreightLine>().Sum(p => p.LineAmount + p.TaxAmount); }
+		}
+
+		public int PickPackCount
+		{
+			get { return _orderLines.OfType<ProductLine>().Sum(s => s.ShipQty); }
+		}
+
+		public decimal PickPackFee
+		{
+			get { return PickPackCount * _shippingCostService.PickPackFee; }
+		}
+
+		public int BoxCount
+		{
+			get { return _orderLines.OfType<FreightLine>().Count(); }
+		}
+
+		public decimal BoxFee
+		{
+			get { return BoxCount * _shippingCostService.BoxFee; }
+		}
+
+		public decimal TotalInvoice
+		{
+			get { return FreightFee + BoxFee + PickPackFee; }
+		}
+
 		public IEnumerable<ProductPurchaseOrder> GetProductPurchaseOrders(string invoiceId)
 		{
 			var query =

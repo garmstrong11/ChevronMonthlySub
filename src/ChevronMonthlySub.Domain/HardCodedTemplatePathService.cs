@@ -7,7 +7,7 @@
 
 	public class HardCodedTemplatePathService : ITemplatePathService
 	{
-		private const string TemplateDir = @"F:\Chevron\Monthly Subsequent Orders";
+		private const string TemplateDir = @"\\nls_server\Global_User\garmstrong\Chevron";
 		private const string Freight = "FreightTemplate.xlsx";
 		private const string FreightSummary = "FreightSummaryTemplate.xlsx";
 		private const string Product = "ProductTemplate.xlsx";

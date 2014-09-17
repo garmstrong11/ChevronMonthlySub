@@ -60,8 +60,7 @@
     <Compile Include="Domain\OrderKeyTests.cs" />
     <Compile Include="Domain\PurchaseOrderTests.cs" />
     <Compile Include="Domain\OrderLineTest.cs" />
-    <Compile Include="Domain\PurchaseOrderService.cs" />
-    <Compile Include="Domain\PurchaseOrderRepositoryTests.cs" />
+    <Compile Include="Domain\PurchaseOrderServiceTests.cs" />
     <Compile Include="Extractor\FileOpsTests.cs" />
     <Compile Include="Extractor\OrderKeyExtractorTests.cs" />
     <Compile Include="Extractor\OrderLineExtractorTests.cs" />

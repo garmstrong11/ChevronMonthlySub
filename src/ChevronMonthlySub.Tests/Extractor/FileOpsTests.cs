@@ -11,7 +11,7 @@
   {
     private string _projectPath;
     private const string GoodFileName = "Chevron June FG 462988.xlsx";
-    private const string BadFileName = "ServiceOrderKey.xlsx";
+		private const string BadFileName = "hevron June FG 462988.xlsx";
 
 
     [TestFixtureSetUp]
@@ -49,5 +49,15 @@
 
       return nym;
     }
+
+		[TestCase(GoodFileName, Result = true)]
+		[TestCase(BadFileName, Result = false)]
+	  public bool ExistsTest(string filename)
+		{
+			var fileOps = new FileOps();
+			var path = Path.Combine(_projectPath, filename);
+
+			return fileOps.Exists(path);
+		}
   }
 }

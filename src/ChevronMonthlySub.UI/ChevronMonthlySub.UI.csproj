@@ -90,9 +90,6 @@
     <Compile Include="ViewModels\PurchaseOrderRowViewModel.cs" />
     <Compile Include="ViewModels\PurchaseOrdersViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
-    <Compile Include="Views\ErrorWindowView.xaml.cs">
-      <DependentUpon>ErrorWindowView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\PurchaseOrdersView.xaml.cs">
       <DependentUpon>PurchaseOrdersView.xaml</DependentUpon>
     </Compile>
