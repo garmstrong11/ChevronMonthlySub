@@ -14,7 +14,6 @@
 
 	public class ShellViewModel : Screen, IShell
 	{
-		private string _rowSourcePath;
 		private readonly IInvoiceService _invoiceService;
 		private readonly ISourcePathFactory<FlexCelOrderLineDto> _sourcePathFactory;
 		private readonly IValidator<SourcePath<FlexCelOrderLineDto>> _sourcePathValidator;
@@ -43,23 +42,16 @@
 			_poList = new List<PurchaseOrder>(); 
 		}
 
+		protected override void OnActivate()
+		{
+			DisplayName = "Drag your Excel file into this window";
+		}
+
 		private void Reset()
 		{
 			PurchaseOrders.Items.Clear();
 			_poList.Clear();
 			InvoiceId = string.Empty;
-			RowSourcePath = string.Empty;
-		}
-
-		public string RowSourcePath
-		{
-			get { return _rowSourcePath; }
-			set
-			{	
-				if (value == _rowSourcePath) return;
-				_rowSourcePath = value;
-				NotifyOfPropertyChange();
-			}
 		}
 
 		public PurchaseOrdersViewModel PurchaseOrders { get; set; }
@@ -113,10 +105,9 @@
 
 			args.Effects = DragDropEffects.Link;
 
-			RowSourcePath = info.FullName;
 			args.Handled = true;
 
-			_invoiceService.SourcePath = RowSourcePath;
+			_invoiceService.SourcePath = info.FullName;
 			_poList.AddRange(_invoiceService.GetFreightPurchaseOrders(id));
 			_poList.AddRange(_invoiceService.GetProductPurchaseOrders(id));
 
