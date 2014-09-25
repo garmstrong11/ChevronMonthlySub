@@ -141,37 +141,59 @@
 
 		public int SalesLines
 		{
-			get { return ProductLines.Count(); }
+			get
+			{
+				return ProductLines == null 
+					? 0 
+					: ProductLines.Count();
+			}
 		}
 
 		public decimal FreightFee
 		{
-			get { return FreightLines.Sum(p => p.LineAmount + p.TaxAmount); }
+			get
+			{
+				return FreightLines == null 
+					? 0.00m 
+					: FreightLines.Sum(p => p.LineAmount + p.TaxAmount);
+			}
 		}
 
 		public int PickPackCount
 		{
-			get { return ProductLines.Sum(s => s.ShipQty); }
+			get { return ProductLines == null 
+				? 0 
+				: ProductLines.Sum(s => s.ShipQty); }
 		}
 
 		public decimal PickPackFee
 		{
-			get { return PickPackCount * _shippingCostService.PickPackFee; }
+			get { return ProductLines == null 
+				? 0.00m 
+				: PickPackCount * _shippingCostService.PickPackFee; }
 		}
 
 		public int BoxCount
 		{
-			get { return FreightLines.Count(); }
+			get { return FreightLines == null 
+				? 0 
+				: FreightLines.Count(); }
 		}
 
 		public decimal BoxFee
 		{
-			get { return BoxCount * _shippingCostService.BoxFee; }
+			get { return FreightLines == null 
+				? 0.00m 
+				: BoxCount * _shippingCostService.BoxFee; }
 		}
 
 		public decimal TotalInvoice
 		{
-			get { return FreightFee + BoxFee + PickPackFee; }
+			get
+			{
+				if (FreightLines == null || ProductLines == null) return 0.00m;
+				return FreightFee + BoxFee + PickPackFee;
+			}
 		}
 	}
 }
