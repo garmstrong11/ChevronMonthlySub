@@ -50,7 +50,7 @@
 			var now = DateTime.Now;
 			var previousMonth = now.Month - 1;
 
-			var lastDay = new DateTime(now.Year, previousMonth, DateTime.DaysInMonth(now.Year, now.Month));
+			var lastDay = new DateTime(now.Year, previousMonth, DateTime.DaysInMonth(now.Year, previousMonth));
 			return FlxDateTime.ToOADate(lastDay, false);
 		}
   }
