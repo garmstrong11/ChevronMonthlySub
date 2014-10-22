@@ -35,7 +35,7 @@
     <Reference Include="FakeItEasy">
       <HintPath>..\..\packages\FakeItEasy.1.23.0\lib\net40\FakeItEasy.dll</HintPath>
     </Reference>
-    <Reference Include="FlexCel, Version=6.3.0.0, Culture=neutral, PublicKeyToken=cb8f6080e6d5a4d6, processorArchitecture=MSIL" />
+    <Reference Include="FlexCel, Version=6.5.0.0, Culture=neutral, PublicKeyToken=cb8f6080e6d5a4d6, processorArchitecture=MSIL" />
     <Reference Include="FluentAssertions">
       <HintPath>..\..\packages\FluentAssertions.3.1.229\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
