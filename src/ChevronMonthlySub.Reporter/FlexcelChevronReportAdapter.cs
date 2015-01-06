@@ -47,10 +47,14 @@
 
 		private static double GetLastDayOfPreviousMonthAsDouble()
 		{
-			var now = DateTime.Now;
-			var previousMonth = now.Month - 1;
+			var previousMonth = DateTime.Now.AddMonths(-1);
 
-			var lastDay = new DateTime(now.Year, previousMonth, DateTime.DaysInMonth(now.Year, previousMonth));
+			var lastDay = new DateTime(
+				previousMonth.Year, 
+				previousMonth.Month, 
+				DateTime.DaysInMonth(previousMonth.Year, previousMonth.Month)
+			);
+
 			return FlxDateTime.ToOADate(lastDay, false);
 		}
   }
