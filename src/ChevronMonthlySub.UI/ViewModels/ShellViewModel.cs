@@ -128,17 +128,24 @@
 
 			args.Handled = true;
 
-			_invoiceService.SourcePath = info.FullName;
-			_poList.AddRange(_invoiceService.GetFreightPurchaseOrders(id));
-			_poList.AddRange(_invoiceService.GetProductPurchaseOrders(id));
-			_eventAggregator.Publish(new TotalsEvent(_invoiceService), a => Task.Factory.StartNew(a));
+			try {
+				// Setting the SourcePath initiates extraction, extraction errors will propagate from there.
+				_invoiceService.SourcePath = info.FullName;
+				_poList.AddRange(_invoiceService.GetFreightPurchaseOrders(id));
+				_poList.AddRange(_invoiceService.GetProductPurchaseOrders(id));
+				_eventAggregator.Publish(new TotalsEvent(_invoiceService), a => Task.Factory.StartNew(a));
 
-			foreach (var purchaseOrder in _poList)
-			{
-				purchaseOrder.UpdateWithOrderKey(_orderKeys);
+				foreach (var purchaseOrder in _poList)
+				{
+					purchaseOrder.UpdateWithOrderKey(_orderKeys);
+				}
+
+				PurchaseOrders.Items.AddRange(_poList.Select(p => new PurchaseOrderRowViewModel(p, _requestorService)));
 			}
-
-			PurchaseOrders.Items.AddRange(_poList.Select(p => new PurchaseOrderRowViewModel(p, _requestorService)));
+			catch (Exception exc) {
+				var errDialog = new ErrorWindowViewModel {Errors = exc.Message};
+				_windowManager.ShowDialog(errDialog);
+			}
 		}
 
 		public void RunReports()
