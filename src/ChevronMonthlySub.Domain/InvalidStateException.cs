@@ -1,18 +1,17 @@
 ﻿namespace ChevronMonthlySub.Domain
 {
 	using System;
+	using System.Text;
 
 	public class InvalidStateException : Exception
 	{
-		private readonly string _poNumber;
-		private readonly int _orderNumber;
-		private readonly string _lineDesc ;
+		private readonly int _rowIndex;
+		private readonly string _lineDesc;
 		private readonly string _badState;
 
-		public InvalidStateException(string poNumber, int orderNumber, string lineDesc, string badState)
+		public InvalidStateException(int rowIndex, string lineDesc, string badState)
 		{
-			_poNumber = poNumber;
-			_orderNumber = orderNumber;
+			_rowIndex = rowIndex;
 			_lineDesc = lineDesc;
 			_badState = badState;
 		}
@@ -24,8 +23,17 @@
 
 		private string FormExceptionMessage()
 		{
-			return string.Format("The input \"{0}\" from PO Number {1}, Order Number {2}, LineDesc {3} is not a valid state.",
-				_badState, _poNumber, _orderNumber, _lineDesc);
+			var sb = new StringBuilder();
+			sb.AppendFormat("I am unable to extract a valid US state abbreviation from row {0}\n", _rowIndex);
+			sb.AppendLine();
+			sb.AppendLine("I use the last two characters of the LineDesc column to look up the correct state,");
+			sb.AppendFormat("but the value \"{0}\"\n", _badState);
+			sb.AppendFormat("from \"{0}\"\n", _lineDesc);
+			sb.AppendLine("is not a valid US state abbreviation.");
+			sb.AppendLine("Please correct the spreadsheet and try again.");
+			sb.AppendLine("It may also be useful to check other rows with the same Order-Number for this problem.");
+
+			return sb.ToString();
 		}
 	}
 }
