@@ -15,5 +15,6 @@
 		public int FreightLineCount { get; set; }
 		public int OrderLineCount { get; set; }
 		public string LineDesc { get; set; }
+		public int RowIndex { get; set; }
 	}
 }

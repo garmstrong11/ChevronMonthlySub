@@ -12,6 +12,7 @@
 			for (var row = 2; row <= Xls.RowCount; row++) {
 				var dto = new FlexCelOrderLineDto
 					{
+						RowIndex = row,
 						DateShipped = ExtractDateTime(row, 1),
 						PoNumber = ExtractString(row, 2),
 						OrderNumber = ExtractIntFromString(row, 3),

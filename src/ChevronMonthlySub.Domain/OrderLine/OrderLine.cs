@@ -14,6 +14,7 @@
 	    PoNumber = dto.PoNumber;
 	    OrderNumber = dto.OrderNumber;
 	    LineDesc = dto.LineDesc;
+		  RowIndex = dto.RowIndex;
 
 	    ExtractDestinationAndState(LineDesc);
 	  }
@@ -25,6 +26,7 @@
 		public string Destination { get; private set; }
 		public TaxType TaxType { get; private set; }
 	  public string State { get; private set; }
+		public int RowIndex { get; private set; }
 
 	  private void ExtractDestinationAndState(string desc)
 	  {
@@ -37,7 +39,7 @@
 			TaxType taxType;
 			if (!TaxDict.TryGetValue(state, out taxType))
 			{
-				throw new InvalidStateException(PoNumber, OrderNumber, LineDesc, state);
+				throw new InvalidStateException(RowIndex, LineDesc, state);
 			}
 
 		  State = state;
